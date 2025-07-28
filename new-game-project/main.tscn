@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://bivscnvnggdmy"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_yhtw0"]
+[ext_resource type="Texture2D" uid="uid://pjmucvhb70yn" path="res://art/placeholders/arrow_down.png" id="2_l6dht"]
+[ext_resource type="Texture2D" uid="uid://dqr8t3i0hqsru" path="res://art/placeholders/arrow_left.png" id="3_b50r5"]
+[ext_resource type="Texture2D" uid="uid://d3s857j8hqvv3" path="res://art/placeholders/arrow_right.png" id="4_3hsgg"]
+[ext_resource type="Texture2D" uid="uid://btp4xnfxx3tsm" path="res://art/placeholders/arrow_up.png" id="5_vs2mu"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_yhtw0")
+
+[node name="ArrowDown" type="Sprite2D" parent="."]
+position = Vector2(65, 160)
+texture = ExtResource("2_l6dht")
+
+[node name="ArrowLeft" type="Sprite2D" parent="."]
+position = Vector2(45, 137.5)
+texture = ExtResource("3_b50r5")
+
+[node name="ArrowRight" type="Sprite2D" parent="."]
+position = Vector2(84, 137.5)
+texture = ExtResource("4_3hsgg")
+
+[node name="ArrowUp" type="Sprite2D" parent="."]
+position = Vector2(65, 115)
+texture = ExtResource("5_vs2mu")
+
+[node name="timerTextBox" type="Label" parent="."]
+offset_left = 144.0
+offset_top = 123.0
+offset_right = 184.0
+offset_bottom = 146.0
+text = "00"
+horizontal_alignment = 1
+
+[node name="roundTimer" type="Timer" parent="."]
+wait_time = 60.0
+
+[node name="playerHealthBar" type="ProgressBar" parent="."]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 133.0
+offset_bottom = 35.0
+
+[node name="bossHealthBar" type="ProgressBar" parent="."]
+offset_left = 180.0
+offset_top = 8.0
+offset_right = 301.0
+offset_bottom = 35.0
