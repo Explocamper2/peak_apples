@@ -1,0 +1,6 @@
+[gd_resource type="JSON" format=3 uid="uid://dcl3jvycpjae"]
+
+[resource]
+data = {
+"index": 1.0
+}
