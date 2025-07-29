@@ -9,7 +9,7 @@ var fruits = [
 			"type": "damage",
 			"amount": 1,
 			"action": "",
-			"target": "boss",
+			"target": "opponent",
 		},
 	},
 	{
@@ -20,7 +20,7 @@ var fruits = [
 			"type": "damage",
 			"amount": 1,
 			"action": "",
-			"target": "player",
+			"target": "self",
 		},
 	},
 	{
@@ -31,7 +31,7 @@ var fruits = [
 			"type": "heal",
 			"amount": 1,
 			"action": "",
-			"target": "player",
+			"target": "self",
 		},
 	},
 	{
@@ -42,7 +42,7 @@ var fruits = [
 			"type": "power up",
 			"amount": 2,
 			"action": "multi next hit",
-			"target": "player",
+			"target": "self",
 		},
 	},
 	{
@@ -53,7 +53,7 @@ var fruits = [
 			"type": "power up",
 			"amount": 1,
 			"action": "reduce apple spawn",
-			"target": "player",
+			"target": "self",
 		},
 	},
 	{
@@ -64,7 +64,7 @@ var fruits = [
 			"type": "damage",
 			"amount": 0.5,
 			"action": "",
-			"target": "player",
+			"target": "self",
 		},
 	},
 	{
@@ -76,7 +76,7 @@ var fruits = [
 			"amount": 2,
 			"length": 5,
 			"action": "2x damage",
-			"target": "player",
+			"target": "self",
 		},
 	},
 	{
@@ -87,7 +87,7 @@ var fruits = [
 			"type": "damage",
 			"amount": 3,
 			"action": "",
-			"target": "player",
+			"target": "self",
 		},
 	}
 ]

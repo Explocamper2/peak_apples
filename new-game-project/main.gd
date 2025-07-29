@@ -32,7 +32,7 @@ const PLAYER_AVATAR = preload("res://art/placeholders/Characters/player.png")
 
 var playerHealth = 100
 var bossHealth = 100
-var choosing_fruit = false
+var choosing_fruit = true
 var chosen_fruit = null
 var current_stage = 1
 var combo_count = 0
@@ -170,33 +170,41 @@ func convert_num_name(input):
 			if fruit["index"] == input:
 				return fruit["name"]
 
-func use_fruit(fruit_index):
-	print(fruit_index)
-	for fruit in FruitsDB.fruits:
-		if fruit["index"] == fruit_index:
-			# damage, power up
-			var effects = fruit["effects"]
-			var type = effects["type"]
-			var amount = effects["amount"]
-			var action = effects["action"]
-			var target = effects["target"]
-			
-			if type == "damage":
-				apply_damage(target, amount)
-			elif type == "heal":
-				heal(target, amount)
-			elif type == "power up": # multi next hit, 2x damage (5 sec), reduce apple spawn
-				if action == "multi next hit":
-					print("2x damage for next hit")
-					# apply 2x damage for next hit
+func use_fruit(fruit_index: int, by_boss: bool=false) -> void:
+	# find the fruit dict
+	var fruit = null
+	for f in FruitsDB.fruits:
+		if f["index"] == fruit_index:
+			fruit = f
+	if fruit == null: return
+
+	var effect = fruit["effects"]
+	var intended = effect["target"]
+	var actual_target = ""
+	if intended == "self":
+		if by_boss:
+			actual_target = "boss"
+		else:
+			actual_target = "player"
+	else:
+		if by_boss:
+			actual_target = "player"
+		else:
+			actual_target = "boss"
+
+	# apply effect
+	match effect["type"]:
+		"damage": apply_damage(actual_target, effect["amount"])
+		"heal":   heal(actual_target, effect["amount"])
+		"power up":
+			match effect["action"]:
+				"multi next hit":
 					damage_multi_active = true
 					combo_count += 1
-				elif action == "2x damage":
-					print("2x damage for 5 seconds")
-					# have 2x damage for 5 sec
-					damage_multi_timer.wait_time = effects["length"]
-					damage_multi_timer.set_meta("multi_amount", amount)
-				elif action == "reduce apple spawn":
+				"2x damage":
+					damage_multi_timer.wait_time = effect["length"]
+					damage_multi_timer.set_meta("multi_amount", effect["amount"])
+				"reduce apple spawn":
 					apple_low_chance = true
 
 func evaluate_fruit(index: int) -> float:
@@ -270,7 +278,7 @@ func evaluate_fruit(index: int) -> float:
 				else:
 					score += 10.0
 			else:
-					score -= 10.0
+				score -= 10.0
 		4:  # E4: (favours Durian)
 			if fruit.name == "Durian":
 				score += 25.0 * strategy
@@ -298,28 +306,11 @@ func handle_boss_turn():
 		if score > best_score:
 			best_score = score
 			best_index = index
-	use_fruit(best_index)
+	use_fruit(best_index, true)
 	await  get_tree().create_timer(0.5).timeout
-	bossTurn = false
-	playerTurn = true
-	choosing_fruit = false
 
 func _process(_delta) -> void:
 	update_stage()
-	# fruits
-	if choosing_fruit == false and playerTurn == true:
-		use_fruit(chosen_fruit)
-		var fruits = choose_random_fruits()
-		print("fruits: ", fruits)
-		option_up.frame = fruits[0]
-		option_down.frame = fruits[1]
-		option_left.frame = fruits[2]
-		option_right.frame = fruits[3]
-		choosing_fruit = true
-		playerTurn = false
-		bossTurn = true
-	
-	
 	
 	# timer
 	timer_text_box.text = str(round(round_timer.time_left))
@@ -370,6 +361,20 @@ func _process(_delta) -> void:
 	elif bossTurn == true:
 		# boss behavior
 		bossTurn = false
+		playerTurn = true
 		handle_boss_turn()
+		
+	if choosing_fruit == false and playerTurn == true:
+		if chosen_fruit:
+			use_fruit(chosen_fruit)
+		var fruits = choose_random_fruits()
+		print("fruits: ", fruits)
+		option_up.frame = fruits[0]
+		option_down.frame = fruits[1]
+		option_left.frame = fruits[2]
+		option_right.frame = fruits[3]
+		choosing_fruit = true
+		playerTurn = false
+		bossTurn = true
 		
 		
