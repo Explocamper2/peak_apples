@@ -1,10 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://bivscnvnggdmy"]
+[gd_scene load_steps=28 format=3 uid="uid://bivscnvnggdmy"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_yhtw0"]
+[ext_resource type="Script" uid="uid://77vg2gqbjcx" path="res://main.gd" id="1_yhtw0"]
 [ext_resource type="Texture2D" uid="uid://pjmucvhb70yn" path="res://art/placeholders/arrow_down.png" id="2_l6dht"]
+[ext_resource type="Texture2D" uid="uid://csnvoos78xocq" path="res://art/placeholders/Backgrounds/ui_bg_level_2.png" id="3_1u8w0"]
 [ext_resource type="Texture2D" uid="uid://dqr8t3i0hqsru" path="res://art/placeholders/arrow_left.png" id="3_b50r5"]
+[ext_resource type="Texture2D" uid="uid://uqcdjmupnsxy" path="res://art/placeholders/Backgrounds/ui_bg_level_3.png" id="4_0odxb"]
 [ext_resource type="Texture2D" uid="uid://d3s857j8hqvv3" path="res://art/placeholders/arrow_right.png" id="4_3hsgg"]
+[ext_resource type="Texture2D" uid="uid://d1xa8unq8yvdi" path="res://art/placeholders/Backgrounds/ui_bg_level_4.png" id="5_lswn8"]
 [ext_resource type="Texture2D" uid="uid://btp4xnfxx3tsm" path="res://art/placeholders/arrow_up.png" id="5_vs2mu"]
+[ext_resource type="Texture2D" uid="uid://t4kpd0k8jctu" path="res://art/placeholders/Backgrounds/ui_bg_level_5.png" id="6_a6jrf"]
 [ext_resource type="Texture2D" uid="uid://bwdfh3x6e1p1n" path="res://art/placeholders/fruit_apple.png" id="6_c0lm6"]
 [ext_resource type="Texture2D" uid="uid://cyfrrkdqo7c0a" path="res://art/placeholders/fruit_apple_rotten.png" id="7_r215p"]
 [ext_resource type="Texture2D" uid="uid://bguhry7x12osd" path="res://art/placeholders/fruit_banana.png" id="8_ulu4f"]
@@ -13,6 +17,36 @@
 [ext_resource type="Texture2D" uid="uid://byslpaacpnnqu" path="res://art/placeholders/fruit_eaten_apple.png" id="11_p3rfw"]
 [ext_resource type="Texture2D" uid="uid://bjfhrme3q0qwm" path="res://art/placeholders/fruit_hot_pepper.png" id="12_n5l1e"]
 [ext_resource type="Texture2D" uid="uid://cpxejfc6npgee" path="res://art/placeholders/fruit_reaper_pepper.png" id="13_uv1lg"]
+[ext_resource type="Texture2D" uid="uid://ha61erkx3qgd" path="res://art/placeholders/Backgrounds/ui_bg_level_1.png" id="14_w48qg"]
+[ext_resource type="Texture2D" uid="uid://cjo6qwn46bfi4" path="res://art/placeholders/Characters/boss.png" id="15_cegan"]
+[ext_resource type="Texture2D" uid="uid://bdg8kfvavyt66" path="res://art/placeholders/Characters/enemy_1.png" id="16_82xsv"]
+[ext_resource type="Texture2D" uid="uid://b7wmkd6x516qa" path="res://art/placeholders/Characters/enemy_2.png" id="17_getpj"]
+[ext_resource type="Texture2D" uid="uid://dgm5w0nt1qwoy" path="res://art/placeholders/Characters/enemy_3.png" id="18_ryguw"]
+[ext_resource type="Texture2D" uid="uid://deg3ynldk12v1" path="res://art/placeholders/Characters/enemy_4.png" id="19_d13ii"]
+[ext_resource type="Texture2D" uid="uid://ylu5lb27hial" path="res://art/placeholders/Characters/player.png" id="24_xuqvo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qsp4k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_w48qg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1u8w0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0odxb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lswn8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_a6jrf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ybqpa"]
 animations = [{
@@ -43,38 +77,66 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 0.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1u8w0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_cegan")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_82xsv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_getpj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_ryguw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_d13ii")
+}],
+"loop": true,
+"name": &"default",
 "speed": 5.0
 }]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_yhtw0")
 
+[node name="background" type="AnimatedSprite2D" parent="."]
+position = Vector2(256, 86)
+sprite_frames = SubResource("SpriteFrames_qsp4k")
+
 [node name="ArrowDown" type="Sprite2D" parent="."]
-position = Vector2(65, 135.5)
+position = Vector2(114, 228.5)
 texture = ExtResource("2_l6dht")
 
 [node name="ArrowLeft" type="Sprite2D" parent="."]
-position = Vector2(45, 113)
+position = Vector2(94, 206)
 texture = ExtResource("3_b50r5")
 
 [node name="ArrowRight" type="Sprite2D" parent="."]
-position = Vector2(84, 113)
+position = Vector2(133, 206)
 texture = ExtResource("4_3hsgg")
 
 [node name="ArrowUp" type="Sprite2D" parent="."]
-position = Vector2(65, 90.5)
+position = Vector2(114, 183.5)
 texture = ExtResource("5_vs2mu")
 
 [node name="timerTextBox" type="Label" parent="."]
-offset_left = 144.0
-offset_top = 123.0
-offset_right = 184.0
-offset_bottom = 146.0
+offset_left = 189.0
+offset_top = 207.0
+offset_right = 229.0
+offset_bottom = 230.0
 text = "00"
 horizontal_alignment = 1
 
 [node name="roundTimer" type="Timer" parent="."]
 wait_time = 60.0
+one_shot = true
 
 [node name="playerHealthBar" type="ProgressBar" parent="."]
 offset_left = 12.0
@@ -83,27 +145,42 @@ offset_right = 133.0
 offset_bottom = 35.0
 
 [node name="bossHealthBar" type="ProgressBar" parent="."]
-offset_left = 180.0
+offset_left = 351.0
 offset_top = 8.0
-offset_right = 301.0
+offset_right = 472.0
 offset_bottom = 35.0
 
 [node name="OptionUp" type="AnimatedSprite2D" parent="."]
-position = Vector2(65, 65.5)
+position = Vector2(114, 158.5)
 sprite_frames = SubResource("SpriteFrames_ybqpa")
+speed_scale = 0.0
 
 [node name="OptionDown" type="AnimatedSprite2D" parent="."]
-position = Vector2(64, 159.5)
+position = Vector2(113, 252.5)
 sprite_frames = SubResource("SpriteFrames_ybqpa")
+speed_scale = 0.0
 
 [node name="OptionLeft" type="AnimatedSprite2D" parent="."]
-position = Vector2(109, 113)
+position = Vector2(69, 206)
 sprite_frames = SubResource("SpriteFrames_ybqpa")
+speed_scale = 0.0
 
 [node name="OptionRight" type="AnimatedSprite2D" parent="."]
-position = Vector2(20, 113)
+position = Vector2(158, 206)
 sprite_frames = SubResource("SpriteFrames_ybqpa")
+speed_scale = 0.0
 
 [node name="press_debounce" type="Timer" parent="."]
-wait_time = 0.5
 one_shot = true
+
+[node name="boss" type="AnimatedSprite2D" parent="."]
+position = Vector2(339, 87)
+sprite_frames = SubResource("SpriteFrames_1u8w0")
+
+[node name="player" type="Sprite2D" parent="."]
+position = Vector2(165, 91)
+texture = ExtResource("24_xuqvo")
+
+[node name="damage_multi_timer" type="Timer" parent="."]
+one_shot = true
+metadata/multi_amount = 0
