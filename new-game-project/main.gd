@@ -39,6 +39,9 @@ var combo_count = 0
 var damage_multi_active = false
 var apple_low_chance = false
 
+var bossTurn = false
+var playerTurn = true
+
 
 
 var bosses = [
@@ -70,7 +73,8 @@ var bosses = [
 ]
 
 
-
+func round_to_dec(num, digit):
+	return round(num * pow(10.0, digit)) / pow(10.0, digit)
 
 func _ready() -> void:
 	round_timer.start()
@@ -86,16 +90,27 @@ func update_stage():
 func apply_damage(target, a):
 	var amount = a
 	if damage_multi_active == true:
-		amount = amount * 2
+		amount = amount * (combo_count+1)
 	else: pass
 	damage_multi_active = false
 	if damage_multi_timer.time_left > 0:
 		amount = amount * damage_multi_timer.get_meta("multi_amount")
 	print("Dealing ", amount, " damage to ", target)
 	
+	# actually take the damage
 	if target == "boss":
+		var tween = get_tree().create_tween()
+		var original_pos = Player.position
+		var attack_offset = Vector2(30, 0)
+		tween.tween_property(Player, "position", original_pos + attack_offset, 0.075).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tween.tween_property(Player, "position", original_pos, 0.03).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 		bossHealth -= amount
 	elif target == "player":
+		var tween = get_tree().create_tween()
+		var original_pos = Boss.position
+		var attack_offset = Vector2(-30, 0)
+		tween.tween_property(Boss, "position", original_pos + attack_offset, 0.075).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tween.tween_property(Boss, "position", original_pos, 0.03).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 		playerHealth -= amount
 
 func heal(target, amount):
@@ -167,12 +182,15 @@ func use_fruit(fruit_index):
 			if type == "damage":
 				apply_damage(target, amount)
 			elif type == "heal":
-					heal(target, amount)
+				heal(target, amount)
 			elif type == "power up": # multi next hit, 2x damage (5 sec), reduce apple spawn
 				if action == "multi next hit":
+					print("2x damage for next hit")
 					# apply 2x damage for next hit
 					damage_multi_active = true
+					combo_count += 1
 				elif action == "2x damage":
+					print("2x damage for 5 seconds")
 					# have 2x damage for 5 sec
 					damage_multi_timer.wait_time = effects["length"]
 					damage_multi_timer.set_meta("multi_amount", amount)
@@ -183,7 +201,7 @@ func use_fruit(fruit_index):
 func _process(_delta) -> void:
 	update_stage()
 	# fruits
-	if choosing_fruit == false:
+	if choosing_fruit == false and playerTurn == true:
 		use_fruit(chosen_fruit)
 		var fruits = choose_random_fruits()
 		# print("fruits: ", fruits)
@@ -192,6 +210,7 @@ func _process(_delta) -> void:
 		option_left.frame = fruits[2]
 		option_right.frame = fruits[3]
 		choosing_fruit = true
+		playerTurn = false
 	
 	
 	
@@ -199,39 +218,44 @@ func _process(_delta) -> void:
 	timer_text_box.text = str(round(round_timer.time_left))
 	
 	# health bar
-	player_health_bar.value = clamp(round(playerHealth),0,100)
-	boss_health_bar.value = clamp(round(bossHealth),0,100)
+	player_health_bar.value = round_to_dec(playerHealth,1)
+	boss_health_bar.value = round_to_dec(bossHealth,1)
+	
+	if player_health_bar.value <= 0:
+		print("PLAYER HAS DIED")
+	elif boss_health_bar.value <= 0:
+		print("BOSS HAS DIED MOVING ONTO NEXT ROUND")
+		
 	
 	# input
-	if press_debounce.time_left == 0:
-		if Input.is_action_just_pressed("up_arrow"):
-			press_debounce.start()
-			arrow_up.texture = ARROW_UP_PRESSED
-			chosen_fruit = option_up.frame
-			choosing_fruit = false
-		elif Input.is_action_just_pressed("down_arrow"):
-			press_debounce.start()
-			arrow_down.texture = ARROW_DOWN_PRESSED
-			chosen_fruit = option_down.frame
-			choosing_fruit = false
-		elif Input.is_action_just_pressed("left_arrow"):
-			press_debounce.start()
-			arrow_left.texture = ARROW_LEFT_PRESSED
-			chosen_fruit = option_left.frame
-			choosing_fruit = false
-		elif Input.is_action_just_pressed("right_arrow"):
-			press_debounce.start()
-			arrow_right.texture = ARROW_RIGHT_PRESSED
-			chosen_fruit = option_right.frame
-			choosing_fruit = false
-			
-	if Input.is_action_just_released("up_arrow"):
-		arrow_up.texture = ARROW_UP_RELEASED
-	elif Input.is_action_just_released("down_arrow"):
-		arrow_down.texture = ARROW_DOWN_RELEASED
-	elif Input.is_action_just_released("left_arrow"):
-		arrow_left.texture = ARROW_LEFT_RELEASED
-	elif Input.is_action_just_released("right_arrow"):
-		arrow_right.texture = ARROW_RIGHT_RELEASED
-	
-	
+	if playerTurn == true:
+		if press_debounce.time_left == 0:
+			if Input.is_action_just_pressed("up_arrow"):
+				press_debounce.start()
+				arrow_up.texture = ARROW_UP_PRESSED
+				chosen_fruit = option_up.frame
+				choosing_fruit = false
+			elif Input.is_action_just_pressed("down_arrow"):
+				press_debounce.start()
+				arrow_down.texture = ARROW_DOWN_PRESSED
+				chosen_fruit = option_down.frame
+				choosing_fruit = false
+			elif Input.is_action_just_pressed("left_arrow"):
+				press_debounce.start()
+				arrow_left.texture = ARROW_LEFT_PRESSED
+				chosen_fruit = option_left.frame
+				choosing_fruit = false
+			elif Input.is_action_just_pressed("right_arrow"):
+				press_debounce.start()
+				arrow_right.texture = ARROW_RIGHT_PRESSED
+				chosen_fruit = option_right.frame
+				choosing_fruit = false
+
+		if Input.is_action_just_released("up_arrow"):
+			arrow_up.texture = ARROW_UP_RELEASED
+		elif Input.is_action_just_released("down_arrow"):
+			arrow_down.texture = ARROW_DOWN_RELEASED
+		elif Input.is_action_just_released("left_arrow"):
+			arrow_left.texture = ARROW_LEFT_RELEASED
+		elif Input.is_action_just_released("right_arrow"):
+			arrow_right.texture = ARROW_RIGHT_RELEASED

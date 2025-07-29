@@ -171,6 +171,7 @@ sprite_frames = SubResource("SpriteFrames_ybqpa")
 speed_scale = 0.0
 
 [node name="press_debounce" type="Timer" parent="."]
+wait_time = 0.75
 one_shot = true
 
 [node name="boss" type="AnimatedSprite2D" parent="."]
