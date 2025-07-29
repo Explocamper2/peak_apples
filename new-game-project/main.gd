@@ -37,6 +37,7 @@ var chosen_fruit = null
 var current_stage = 1
 var combo_count = 0
 var damage_multi_active = false
+var apple_low_chance = false
 
 
 
@@ -90,7 +91,7 @@ func apply_damage(target, a):
 	damage_multi_active = false
 	if damage_multi_timer.time_left > 0:
 		amount = amount * damage_multi_timer.get_meta("multi_amount")
-	print("Dealing {} damage to {}".format(amount, target))
+	print("Dealing ", amount, " damage to ", target)
 	
 	if target == "boss":
 		bossHealth -= amount
@@ -98,23 +99,59 @@ func apply_damage(target, a):
 		playerHealth -= amount
 
 func heal(target, amount):
-	print("Healing {} by {} points".format(target, amount))
+	print("Healing", target, " by ", amount, " points")
 	if target == "player":
 		playerHealth += amount
 	elif target == "boss":
 		bossHealth += amount
 
-func choose_random_fruits():
-	var chosen_fruits = []
-	var numbers = [0,1,2,3,4,5,6,7]
-	var count = 0
-	while count < 4:
-		count += 1
-		numbers.shuffle()
-		var num = numbers[1]
-		chosen_fruits.append(num)
-		numbers.erase(num)
-	return chosen_fruits
+
+var fruit_chances = {
+	"apple": 12.5,
+	"rotten apple": 12.5,
+	"banana": 12.5,
+	"berry": 12.5,
+	"durian": 12.5,
+	"eaten apple": 12.5,
+	"hot pepper": 12.55,
+	"reaper pepper": 12.5
+}
+
+func choose_random_fruits() -> Array:
+	var chosen = []
+	var pool = fruit_chances.duplicate()
+	if apple_low_chance == true:
+		for fruit in fruit_chances:
+			if fruit == "apple":
+				fruit_chances["apple"] = 5
+			else: fruit = "13.57"
+	else: for fruit in fruit_chances: fruit = 12.5
+	
+	while chosen.size() < 4 and pool.size() > 0:
+		var total_chance = 0
+		for chance in pool.values():
+			total_chance += chance
+
+		var rand = randi() % int(total_chance)
+		var cumulative = 0
+
+		for fruit in pool.keys():
+			cumulative += pool[fruit]
+			if rand < cumulative:
+				chosen.append(convert_num_name(fruit))
+				pool.erase(fruit)
+				break
+	return chosen
+
+func convert_num_name(input):
+	if typeof(input) == TYPE_STRING:
+		for fruit in FruitsDB.fruits:
+			if fruit["name"].to_lower() == input:
+				return fruit["index"]
+	elif typeof(input) == TYPE_INT:
+		for fruit in FruitsDB.fruits:
+			if fruit["index"] == input:
+				return fruit["name"]
 
 func use_fruit(fruit_index):
 	print(fruit_index)
@@ -139,7 +176,9 @@ func use_fruit(fruit_index):
 					# have 2x damage for 5 sec
 					damage_multi_timer.wait_time = effects["length"]
 					damage_multi_timer.set_meta("multi_amount", amount)
-			
+				elif action == "reduce apple spawn":
+					apple_low_chance = true
+					
 
 func _process(_delta) -> void:
 	update_stage()
@@ -147,6 +186,7 @@ func _process(_delta) -> void:
 	if choosing_fruit == false:
 		use_fruit(chosen_fruit)
 		var fruits = choose_random_fruits()
+		# print("fruits: ", fruits)
 		option_up.frame = fruits[0]
 		option_down.frame = fruits[1]
 		option_left.frame = fruits[2]
