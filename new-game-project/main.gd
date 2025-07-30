@@ -24,6 +24,7 @@ extends Node2D
 @onready var player_combo_display: Label = $player_combo_display
 @onready var boss_combo_display: Label = $boss_combo_display
 @onready var camera: Camera2D = $Camera
+@onready var boss_health_indicator: Label = $boss_health_indicator
 
 # images
 const ARROW_UP_RELEASED = preload("res://art/placeholders/arrow_up.png")
@@ -97,17 +98,18 @@ func update_stage():
 			Boss.frame = v.frame
 			background.frame = boss_stage
 
-func apply_damage(target, a, combo):
+func apply_damage(target, a, damageCombo):
 	var amount = a
-	var damageCombo = combo
+	var combo = damageCombo
 	if damage_multi_active == true:
 		combo += 1
 		damage_multi_active = false
 	if boss_damage_multi_timer.time_left > 0:
-		combo += boss_damage_multi_timer.get_meta("multi_amount")
+		combo += 1
 	if player_damage_multi_timer.time_left > 0:
-		combo += player_damage_multi_timer.get_meta("multi_amount")
-	
+		combo += 1
+	amount = amount * combo
+	boss_health_indicator.text = str(-amount)
 	print("Dealing ", amount, " damage to ", target)
 	
 	# actually take the damage
@@ -116,20 +118,24 @@ func apply_damage(target, a, combo):
 		var original_pos = Player.position
 		var attack_offset = Vector2(30, 0)
 		# camera shake
-		camera.apply_shake(amount * 5)
+		camera.apply_shake(amount)
 		tween.tween_property(Player, "position", original_pos + attack_offset, 0.075).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tween.tween_property(Player, "position", original_pos, 0.03).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 		bossHealth -= amount
+		await get_tree().create_timer(0.5).timeout
+		camera.apply_shake(0)
 		
 	elif target == "player":
 		var tween = get_tree().create_tween()
 		var original_pos = Boss.position
 		var attack_offset = Vector2(-30, 0)
 		# camera shake
-		camera.apply_shake(amount * 5)
+		camera.apply_shake(amount)
 		tween.tween_property(Boss, "position", original_pos + attack_offset, 0.075).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tween.tween_property(Boss, "position", original_pos, 0.03).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 		playerHealth -= amount
+		await get_tree().create_timer(0.5).timeout
+		camera.apply_shake(0)
 
 func heal(target, amount):
 	print("Healing", target, " by ", amount, " points")
@@ -189,8 +195,8 @@ func convert_num_name(input):
 
 func use_fruit(fruit_index: int, by_boss: bool) -> void:
 	# find the fruit dict
-	if by_boss: print("Player using ", convert_num_name(fruit_index))
-	else: print("Boss using ", convert_num_name(fruit_index))
+	if by_boss: print("Boss using ", convert_num_name(fruit_index))
+	else: print("Player using ", convert_num_name(fruit_index))
 	var fruit = null
 	for f in FruitsDB.fruits:
 		if f["index"] == fruit_index:
@@ -229,8 +235,10 @@ func use_fruit(fruit_index: int, by_boss: bool) -> void:
 				"multi next hit":
 					if by_boss:
 						boss_combo_count += 1
+						print("Boss combo: ", boss_combo_count)
 					else:
 						player_combo_count += 1
+						print("Player combo: ", player_combo_count)
 				"2x damage":
 					if by_boss:
 						boss_damage_multi_timer.wait_time = effect["length"]
@@ -376,6 +384,8 @@ func _process(_delta) -> void:
 	elif boss_health_bar.value <= 0:
 		print("BOSS HAS DIED MOVING ONTO NEXT ROUND")
 		current_stage += 1
+		bossHealth = 100
+		playerHealth = 100
 		print("Now on round: ", current_stage)
 		update_stage()
 		
