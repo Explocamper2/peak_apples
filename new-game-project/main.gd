@@ -365,8 +365,8 @@ func handle_boss_turn():
 func _process(_delta) -> void:
 	
 	# UI
-	player_combo_display.text = "Current Combo: " + str(player_combo_count) 
-	boss_combo_display.text = "Current Combo: " + str(boss_combo_count)
+	player_combo_display.text = "Combo: " + str(player_combo_count) 
+	boss_combo_display.text = "Combo: " + str(boss_combo_count)
 	# Timer
 	timer_text_box.text = str(round(round_timer.time_left))
 	

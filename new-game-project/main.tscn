@@ -1,7 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://bivscnvnggdmy"]
+[gd_scene load_steps=32 format=3 uid="uid://bivscnvnggdmy"]
 
 [ext_resource type="Script" uid="uid://77vg2gqbjcx" path="res://main.gd" id="1_yhtw0"]
 [ext_resource type="Texture2D" uid="uid://pjmucvhb70yn" path="res://art/placeholders/arrow_down.png" id="2_l6dht"]
+[ext_resource type="Texture2D" uid="uid://c534m0f1odd8o" path="res://art/ui_bg_bottom.png" id="2_xuqvo"]
 [ext_resource type="Texture2D" uid="uid://csnvoos78xocq" path="res://art/placeholders/Backgrounds/ui_bg_level_2.png" id="3_1u8w0"]
 [ext_resource type="Texture2D" uid="uid://dqr8t3i0hqsru" path="res://art/placeholders/arrow_left.png" id="3_b50r5"]
 [ext_resource type="Texture2D" uid="uid://uqcdjmupnsxy" path="res://art/placeholders/Backgrounds/ui_bg_level_3.png" id="4_0odxb"]
@@ -109,6 +110,10 @@ animations = [{
 [node name="Main" type="Node2D"]
 script = ExtResource("1_yhtw0")
 
+[node name="UiBgBottom" type="Sprite2D" parent="."]
+position = Vector2(240, 202.5)
+texture = ExtResource("2_xuqvo")
+
 [node name="background" type="AnimatedSprite2D" parent="."]
 position = Vector2(256, 86)
 sprite_frames = SubResource("SpriteFrames_qsp4k")
@@ -196,7 +201,7 @@ offset_top = 148.0
 offset_right = 151.0
 offset_bottom = 171.0
 scale = Vector2(0.5, 0.5)
-text = "Current Combo: 0"
+text = "Combo: 0"
 
 [node name="boss_combo_display" type="Label" parent="."]
 offset_left = 399.0
@@ -204,7 +209,7 @@ offset_top = 148.0
 offset_right = 536.0
 offset_bottom = 171.0
 scale = Vector2(0.5, 0.5)
-text = "Current Combo: 0"
+text = "Combo: 0"
 
 [node name="playerHealthBar" type="TextureProgressBar" parent="."]
 offset_left = 17.0
