@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://bivscnvnggdmy"]
+[gd_scene load_steps=32 format=3 uid="uid://bivscnvnggdmy"]
 
 [ext_resource type="Script" uid="uid://77vg2gqbjcx" path="res://main.gd" id="1_yhtw0"]
 [ext_resource type="Texture2D" uid="uid://pjmucvhb70yn" path="res://art/placeholders/arrow_down.png" id="2_l6dht"]
+[ext_resource type="Texture2D" uid="uid://c534m0f1odd8o" path="res://art/ui_bg_bottom.png" id="2_xuqvo"]
 [ext_resource type="Texture2D" uid="uid://csnvoos78xocq" path="res://art/placeholders/Backgrounds/ui_bg_level_2.png" id="3_1u8w0"]
 [ext_resource type="Texture2D" uid="uid://dqr8t3i0hqsru" path="res://art/placeholders/arrow_left.png" id="3_b50r5"]
 [ext_resource type="Texture2D" uid="uid://uqcdjmupnsxy" path="res://art/placeholders/Backgrounds/ui_bg_level_3.png" id="4_0odxb"]
@@ -19,11 +20,14 @@
 [ext_resource type="Texture2D" uid="uid://cpxejfc6npgee" path="res://art/placeholders/fruit_reaper_pepper.png" id="13_uv1lg"]
 [ext_resource type="Texture2D" uid="uid://ha61erkx3qgd" path="res://art/placeholders/Backgrounds/ui_bg_level_1.png" id="14_w48qg"]
 [ext_resource type="Texture2D" uid="uid://cjo6qwn46bfi4" path="res://art/placeholders/Characters/boss.png" id="15_cegan"]
-[ext_resource type="Texture2D" uid="uid://bdg8kfvavyt66" path="res://art/placeholders/Characters/enemy_1.png" id="16_82xsv"]
-[ext_resource type="Texture2D" uid="uid://b7wmkd6x516qa" path="res://art/placeholders/Characters/enemy_2.png" id="17_getpj"]
-[ext_resource type="Texture2D" uid="uid://dgm5w0nt1qwoy" path="res://art/placeholders/Characters/enemy_3.png" id="18_ryguw"]
 [ext_resource type="Texture2D" uid="uid://deg3ynldk12v1" path="res://art/placeholders/Characters/enemy_4.png" id="19_d13ii"]
-[ext_resource type="Texture2D" uid="uid://ylu5lb27hial" path="res://art/placeholders/Characters/player.png" id="24_xuqvo"]
+[ext_resource type="Texture2D" uid="uid://c553s8uy3q0x3" path="res://art/portrait_enemy_1.png" id="19_lswn8"]
+[ext_resource type="Texture2D" uid="uid://bd7wr1rrwir2c" path="res://art/portrait_enemy_2.png" id="20_a6jrf"]
+[ext_resource type="Texture2D" uid="uid://dk75uubntronw" path="res://art/portrait_enemy_3.png" id="21_xuqvo"]
+[ext_resource type="Texture2D" uid="uid://cnvj87j8g33md" path="res://art/portrait_player.png" id="24_qsp4k"]
+[ext_resource type="Texture2D" uid="uid://3ugeidkvyxnq" path="res://art/UI/ui_hp_bar_bg.png" id="25_kq58d"]
+[ext_resource type="Texture2D" uid="uid://bdhjblmxf385y" path="res://art/UI/ui_hp_bar_progress.png" id="26_seu75"]
+[ext_resource type="Script" uid="uid://08a4ywksd6fj" path="res://camera.gd" id="27_a6jrf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qsp4k"]
 animations = [{
@@ -42,6 +46,29 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("6_a6jrf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1u8w0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_lswn8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_a6jrf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_xuqvo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_d13ii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_cegan")
 }],
 "loop": true,
 "name": &"default",
@@ -80,35 +107,24 @@ animations = [{
 "speed": 0.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_1u8w0"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("15_cegan")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_82xsv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_getpj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_ryguw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_d13ii")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="Main" type="Node2D"]
 script = ExtResource("1_yhtw0")
 
 [node name="background" type="AnimatedSprite2D" parent="."]
 position = Vector2(256, 86)
 sprite_frames = SubResource("SpriteFrames_qsp4k")
+
+[node name="boss" type="AnimatedSprite2D" parent="."]
+position = Vector2(350, 91)
+sprite_frames = SubResource("SpriteFrames_1u8w0")
+
+[node name="player" type="Sprite2D" parent="."]
+position = Vector2(150, 100)
+texture = ExtResource("24_qsp4k")
+
+[node name="UiBgBottom" type="Sprite2D" parent="."]
+position = Vector2(240, 202.5)
+texture = ExtResource("2_xuqvo")
 
 [node name="ArrowDown" type="Sprite2D" parent="."]
 position = Vector2(114, 228.5)
@@ -164,16 +180,8 @@ sprite_frames = SubResource("SpriteFrames_ybqpa")
 speed_scale = 0.0
 
 [node name="press_debounce" type="Timer" parent="."]
-wait_time = 0.75
+wait_time = 0.25
 one_shot = true
-
-[node name="boss" type="AnimatedSprite2D" parent="."]
-position = Vector2(339, 87)
-sprite_frames = SubResource("SpriteFrames_1u8w0")
-
-[node name="player" type="Sprite2D" parent="."]
-position = Vector2(165, 91)
-texture = ExtResource("24_xuqvo")
 
 [node name="player_damage_multi_timer" type="Timer" parent="."]
 one_shot = true
@@ -184,29 +192,51 @@ one_shot = true
 metadata/multi_amount = 0
 
 [node name="boss_timer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="player_combo_display" type="Label" parent="."]
 offset_left = 14.0
-offset_top = 132.0
+offset_top = 148.0
 offset_right = 151.0
-offset_bottom = 155.0
+offset_bottom = 171.0
 scale = Vector2(0.5, 0.5)
-text = "Current Combo: 0"
+text = "Combo: 0"
 
 [node name="boss_combo_display" type="Label" parent="."]
 offset_left = 399.0
-offset_top = 132.0
+offset_top = 148.0
 offset_right = 536.0
-offset_bottom = 155.0
+offset_bottom = 171.0
 scale = Vector2(0.5, 0.5)
-text = "Current Combo: 0"
+text = "Combo: 0"
 
 [node name="playerHealthBar" type="TextureProgressBar" parent="."]
-offset_right = 140.0
-offset_bottom = 41.0
+offset_left = 17.0
+offset_top = 12.0
+offset_right = 147.0
+offset_bottom = 30.0
+texture_under = ExtResource("25_kq58d")
+texture_progress = ExtResource("26_seu75")
+texture_progress_offset = Vector2(3, 3)
 
 [node name="bossHealthBar" type="TextureProgressBar" parent="."]
-offset_left = 340.0
-offset_right = 480.0
-offset_bottom = 41.0
+offset_left = 336.0
+offset_top = 12.0
+offset_right = 466.0
+offset_bottom = 30.0
+texture_under = ExtResource("25_kq58d")
+texture_progress = ExtResource("26_seu75")
+texture_progress_offset = Vector2(3, 3)
+
+[node name="boss_health_indicator" type="Label" parent="."]
+offset_left = 298.0
+offset_top = 54.5
+offset_right = 335.0
+offset_bottom = 77.5
+text = "-1"
+horizontal_alignment = 1
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(240, 135)
+script = ExtResource("27_a6jrf")
