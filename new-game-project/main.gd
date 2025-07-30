@@ -49,32 +49,32 @@ var apple_low_chance = false
 
 
 enum Difficulty { EASY, MEDIUM, HARD }
-var boss_difficulty = Difficulty.MEDIUM
+var boss_difficulty = Difficulty.EASY
 
 
 var bosses = [
 	{
-		"name": "Boss",
+		"name": "enemy_1",
 		"frame": 0,
 		"stage": 1
 	},
 	{
-		"name": "enemy_1",
+		"name": "enemy_2",
 		"frame": 1,
 		"stage": 2
 	},
 	{
-		"name": "enemy_2",
+		"name": "enemy_3",
 		"frame": 2,
 		"stage": 3
 	},
 	{
-		"name": "enemy_3",
+		"name": "enemy_4",
 		"frame": 3,
 		"stage": 4
 	},
 	{
-		"name": "enemy_4",
+		"name": "Boss",
 		"frame": 4,
 		"stage": 5
 	}
@@ -98,10 +98,15 @@ func update_stage():
 
 func apply_damage(target, a, combo):
 	var amount = a
+	var damageCombo = combo
 	if damage_multi_active == true:
-		amount = amount * (combo)
-	else:
+		combo += 1
 		damage_multi_active = false
+	if boss_damage_multi_timer.time_left > 0:
+		combo += boss_damage_multi_timer.get_meta("multi_amount")
+	if player_damage_multi_timer.time_left > 0:
+		combo += player_damage_multi_timer.get_meta("multi_amount")
+	
 	print("Dealing ", amount, " damage to ", target)
 	
 	# actually take the damage
@@ -112,6 +117,7 @@ func apply_damage(target, a, combo):
 		tween.tween_property(Player, "position", original_pos + attack_offset, 0.075).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tween.tween_property(Player, "position", original_pos, 0.03).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 		bossHealth -= amount
+		
 	elif target == "player":
 		var tween = get_tree().create_tween()
 		var original_pos = Boss.position
@@ -201,20 +207,40 @@ func use_fruit(fruit_index: int, by_boss: bool) -> void:
 	# apply effect
 	match effect["type"]:
 		"damage":
-			if by_boss: apply_damage(actual_target, effect["amount"], boss_combo_count)
-			else: apply_damage(actual_target, effect["amount"], player_combo_count)
-		"heal": heal(actual_target, effect["amount"])
+			if by_boss:
+				apply_damage(actual_target, effect["amount"], boss_combo_count)
+				boss_combo_count = 0
+			else:
+				apply_damage(actual_target, effect["amount"], player_combo_count)
+				player_combo_count = 0
+		"heal":
+			heal(actual_target, effect["amount"])
+			if by_boss:
+				boss_combo_count = 0
+			else:
+				player_combo_count = 0
 		"power up":
 			match effect["action"]:
 				"multi next hit":
-					damage_multi_active = true
-					if by_boss: boss_combo_count += 1
-					else: player_combo_count += 1
+					if by_boss:
+						boss_combo_count += 1
+					else:
+						player_combo_count += 1
 				"2x damage":
-					if by_boss: boss_damage_multi_timer.wait_time = effect["length"]
-					else: player_damage_multi_timer.set_meta("multi_amount", effect["amount"])
+					if by_boss:
+						boss_damage_multi_timer.wait_time = effect["length"]
+						boss_damage_multi_timer.set_meta("multi_amount", effect["amount"])
+						boss_damage_multi_timer.start()
+					else:
+						player_damage_multi_timer.wait_time = effect["length"]
+						player_damage_multi_timer.set_meta("multi_amount", effect["amount"])
+						player_damage_multi_timer.start()
 				"reduce apple spawn":
 					apple_low_chance = true
+					if by_boss:
+						boss_combo_count = 0
+					else:
+						player_combo_count = 0
 
 func evaluate_fruit(index: int) -> float:
 	var fruit = null
@@ -232,7 +258,7 @@ func evaluate_fruit(index: int) -> float:
 	var strategy = 1.0
 	match boss_difficulty:
 		Difficulty.EASY:
-			aggression = 0.5; self_preservation = 0.5; strategy = 0.3
+			aggression = 0.25; self_preservation = 0.25; strategy = 0.3
 		Difficulty.MEDIUM:
 			aggression = 1.0; self_preservation = 1.0; strategy = 1.0
 		Difficulty.HARD:
@@ -267,7 +293,7 @@ func evaluate_fruit(index: int) -> float:
 	match current_stage:
 		1:  # E1: normal hits (favours Apple)
 			if fruit.name == "Apple":
-				score += 20.0 * aggression
+				score += 50.0 * aggression
 			else:
 				score -= 10.0
 		2:  # E2: heavy healer (favours Banana)
@@ -323,11 +349,7 @@ func handle_boss_turn():
 
 
 
-
-
-
 func _process(_delta) -> void:
-	update_stage()
 	
 	# UI
 	player_combo_display.text = "Current Combo: " + str(player_combo_count) 
@@ -350,6 +372,7 @@ func _process(_delta) -> void:
 		print("BOSS HAS DIED MOVING ONTO NEXT ROUND")
 		current_stage += 1
 		print("Now on round: ", current_stage)
+		update_stage()
 		
 	
 	# input
