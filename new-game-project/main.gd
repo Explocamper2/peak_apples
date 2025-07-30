@@ -35,6 +35,8 @@ const ARROW_LEFT_PRESSED = preload("res://art/placeholders/arrow_left_pressed.pn
 const ARROW_RIGHT_PRESSED = preload("res://art/placeholders/arrow_right_pressed.png")
 const PLAYER_AVATAR = preload("res://art/placeholders/Characters/player.png")
 
+const DEFAULT_CHANCE = 12.5
+
 var playerHealth = 100
 var bossHealth = 100
 var choosing_fruit = false
@@ -128,14 +130,14 @@ func heal(target, amount):
 
 
 var fruit_chances = {
-	"apple": 12.5,
-	"rotten apple": 12.5,
-	"banana": 12.5,
-	"berry": 12.5,
-	"durian": 12.5,
-	"eaten apple": 12.5,
-	"hot pepper": 12.5,
-	"reaper pepper": 12.5
+	"apple": DEFAULT_CHANCE,
+	"rotten apple": DEFAULT_CHANCE,
+	"banana": DEFAULT_CHANCE,
+	"berry": DEFAULT_CHANCE,
+	"durian": DEFAULT_CHANCE,
+	"eaten apple": DEFAULT_CHANCE,
+	"hot pepper": DEFAULT_CHANCE,
+	"reaper pepper": DEFAULT_CHANCE
 }
 
 func choose_random_fruits() -> Array:
@@ -146,7 +148,7 @@ func choose_random_fruits() -> Array:
 			if fruit == "apple":
 				fruit_chances["apple"] = 5
 			else: fruit = "13.57"
-	else: for fruit in fruit_chances: fruit = 12.5
+	else: for fruit in fruit_chances: fruit = DEFAULT_CHANCE
 	
 	while chosen.size() < 4 and pool.size() > 0:
 		var total_chance = 0
