@@ -23,6 +23,7 @@ extends Node2D
 @onready var boss_choice: AnimatedSprite2D = $BossChoice
 @onready var player_combo_display: Label = $player_combo_display
 @onready var boss_combo_display: Label = $boss_combo_display
+@onready var camera: Camera2D = $Camera
 
 # images
 const ARROW_UP_RELEASED = preload("res://art/placeholders/arrow_up.png")
@@ -114,6 +115,8 @@ func apply_damage(target, a, combo):
 		var tween = get_tree().create_tween()
 		var original_pos = Player.position
 		var attack_offset = Vector2(30, 0)
+		# camera shake
+		camera.apply_shake(amount * 5)
 		tween.tween_property(Player, "position", original_pos + attack_offset, 0.075).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tween.tween_property(Player, "position", original_pos, 0.03).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 		bossHealth -= amount
@@ -122,6 +125,8 @@ func apply_damage(target, a, combo):
 		var tween = get_tree().create_tween()
 		var original_pos = Boss.position
 		var attack_offset = Vector2(-30, 0)
+		# camera shake
+		camera.apply_shake(amount * 5)
 		tween.tween_property(Boss, "position", original_pos + attack_offset, 0.075).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tween.tween_property(Boss, "position", original_pos, 0.03).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 		playerHealth -= amount

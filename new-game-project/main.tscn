@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bivscnvnggdmy"]
+[gd_scene load_steps=31 format=3 uid="uid://bivscnvnggdmy"]
 
 [ext_resource type="Script" uid="uid://77vg2gqbjcx" path="res://main.gd" id="1_yhtw0"]
 [ext_resource type="Texture2D" uid="uid://pjmucvhb70yn" path="res://art/placeholders/arrow_down.png" id="2_l6dht"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://cnvj87j8g33md" path="res://art/portrait_player.png" id="24_qsp4k"]
 [ext_resource type="Texture2D" uid="uid://3ugeidkvyxnq" path="res://art/UI/ui_hp_bar_bg.png" id="25_kq58d"]
 [ext_resource type="Texture2D" uid="uid://bdhjblmxf385y" path="res://art/UI/ui_hp_bar_progress.png" id="26_seu75"]
+[ext_resource type="Script" uid="uid://08a4ywksd6fj" path="res://camera.gd" id="27_a6jrf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qsp4k"]
 animations = [{
@@ -230,3 +231,7 @@ offset_right = 335.0
 offset_bottom = 77.5
 text = "-1"
 horizontal_alignment = 1
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(240, 135)
+script = ExtResource("27_a6jrf")
