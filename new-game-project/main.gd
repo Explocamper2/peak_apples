@@ -16,8 +16,13 @@ extends Node2D
 @onready var arrow_up: Sprite2D = $ArrowUp
 @onready var player_health_bar: ProgressBar = $playerHealthBar
 @onready var boss_health_bar: ProgressBar = $bossHealthBar
+@onready var player_damage_multi_timer: Timer = $player_damage_multi_timer
+@onready var boss_damage_multi_timer: Timer = $boss_damage_multi_timer
 @onready var background: AnimatedSprite2D = $background
-@onready var damage_multi_timer: Timer = $damage_multi_timer
+@onready var boss_timer: Timer = $boss_timer
+@onready var boss_choice: AnimatedSprite2D = $BossChoice
+@onready var player_combo_display: Label = $player_combo_display
+@onready var boss_combo_display: Label = $boss_combo_display
 
 # images
 const ARROW_UP_RELEASED = preload("res://art/placeholders/arrow_up.png")
@@ -32,15 +37,15 @@ const PLAYER_AVATAR = preload("res://art/placeholders/Characters/player.png")
 
 var playerHealth = 100
 var bossHealth = 100
-var choosing_fruit = true
+var choosing_fruit = false
 var chosen_fruit = null
 var current_stage = 1
-var combo_count = 0
+var player_combo_count = 0
+var boss_combo_count = 0
 var damage_multi_active = false
 var apple_low_chance = false
 
-var bossTurn = false
-var playerTurn = true
+
 enum Difficulty { EASY, MEDIUM, HARD }
 var boss_difficulty = Difficulty.MEDIUM
 
@@ -79,6 +84,7 @@ func round_to_dec(num, digit):
 
 func _ready() -> void:
 	round_timer.start()
+	boss_timer.start()
 	update_stage()
 
 func update_stage():
@@ -88,14 +94,12 @@ func update_stage():
 			Boss.frame = v.frame
 			background.frame = boss_stage
 
-func apply_damage(target, a):
+func apply_damage(target, a, combo):
 	var amount = a
 	if damage_multi_active == true:
-		amount = amount * (combo_count+1)
-	else: pass
-	damage_multi_active = false
-	if damage_multi_timer.time_left > 0:
-		amount = amount * damage_multi_timer.get_meta("multi_amount")
+		amount = amount * (combo)
+	else:
+		damage_multi_active = false
 	print("Dealing ", amount, " damage to ", target)
 	
 	# actually take the damage
@@ -130,7 +134,7 @@ var fruit_chances = {
 	"berry": 12.5,
 	"durian": 12.5,
 	"eaten apple": 12.5,
-	"hot pepper": 12.55,
+	"hot pepper": 12.5,
 	"reaper pepper": 12.5
 }
 
@@ -170,40 +174,43 @@ func convert_num_name(input):
 			if fruit["index"] == input:
 				return fruit["name"]
 
-func use_fruit(fruit_index: int, by_boss: bool=false) -> void:
+func use_fruit(fruit_index: int, by_boss: bool) -> void:
 	# find the fruit dict
+	if by_boss: print("Player using ", convert_num_name(fruit_index))
+	else: print("Boss using ", convert_num_name(fruit_index))
 	var fruit = null
 	for f in FruitsDB.fruits:
 		if f["index"] == fruit_index:
 			fruit = f
-	if fruit == null: return
+	if fruit == null:
+		ERR_DOES_NOT_EXIST
+		return
 
 	var effect = fruit["effects"]
 	var intended = effect["target"]
 	var actual_target = ""
 	if intended == "self":
-		if by_boss:
-			actual_target = "boss"
-		else:
-			actual_target = "player"
+		if by_boss: actual_target = "boss"
+		else: actual_target = "player"
 	else:
-		if by_boss:
-			actual_target = "player"
-		else:
-			actual_target = "boss"
+		if by_boss: actual_target = "player"
+		else: actual_target = "boss"
 
 	# apply effect
 	match effect["type"]:
-		"damage": apply_damage(actual_target, effect["amount"])
-		"heal":   heal(actual_target, effect["amount"])
+		"damage":
+			if by_boss: apply_damage(actual_target, effect["amount"], boss_combo_count)
+			else: apply_damage(actual_target, effect["amount"], player_combo_count)
+		"heal": heal(actual_target, effect["amount"])
 		"power up":
 			match effect["action"]:
 				"multi next hit":
 					damage_multi_active = true
-					combo_count += 1
+					if by_boss: boss_combo_count += 1
+					else: player_combo_count += 1
 				"2x damage":
-					damage_multi_timer.wait_time = effect["length"]
-					damage_multi_timer.set_meta("multi_amount", effect["amount"])
+					if by_boss: boss_damage_multi_timer.wait_time = effect["length"]
+					else: player_damage_multi_timer.set_meta("multi_amount", effect["amount"])
 				"reduce apple spawn":
 					apple_low_chance = true
 
@@ -251,7 +258,7 @@ func evaluate_fruit(index: int) -> float:
 				if effect.action == "reduce apple spawn":
 					score += (5.0 if not apple_low_chance else -10.0) * strategy
 				if effect.action == "multi next hit":
-					score += (5.0 + combo_count * 2.0) * strategy
+					score += (5.0 + boss_combo_count * 2.0) * strategy
 
 	# --- Boss‐specific adjustments ---
 	# current_stage 1→E1, 2→E2, 3→E3, 4→E4, 5→E5
@@ -268,12 +275,12 @@ func evaluate_fruit(index: int) -> float:
 				score -= 15.0
 		3:  # E3: charge with Berries, then one‐shot Apples
 			if fruit.name == "Berry":
-				if combo_count < 3:
+				if boss_combo_count < 3:
 					score += 25.0 * strategy
 				else:
 					score += 5.0
 			elif fruit.name == "Apple":
-				if combo_count >= 3:
+				if boss_combo_count >= 3:
 					score += 50.0 * aggression
 				else:
 					score += 10.0
@@ -295,7 +302,7 @@ func evaluate_fruit(index: int) -> float:
 	return score
 
 func handle_boss_turn():
-	await get_tree().create_timer(0.5).timeout
+	print("boss turn time")
 	var options = choose_random_fruits()
 	
 	var best_index = options[0]
@@ -306,75 +313,91 @@ func handle_boss_turn():
 		if score > best_score:
 			best_score = score
 			best_index = index
+	print("best option for boss out of ", options, " is ", best_index)
+	boss_choice.frame = best_index
 	use_fruit(best_index, true)
-	await  get_tree().create_timer(0.5).timeout
+
+
+
+
+
+
+
 
 func _process(_delta) -> void:
 	update_stage()
 	
-	# timer
+	# UI
+	player_combo_display.text = "Current Combo: " + str(player_combo_count) 
+	boss_combo_display.text = "Current Combo: " + str(boss_combo_count)
+	# Timer
 	timer_text_box.text = str(round(round_timer.time_left))
 	
 	# health bar
 	player_health_bar.value = round_to_dec(playerHealth,1)
 	boss_health_bar.value = round_to_dec(bossHealth,1)
 	
+	if player_damage_multi_timer.time_left == 0:
+		player_damage_multi_timer.set_meta("multi_amount", 0)
+	if boss_damage_multi_timer.time_left == 0:
+		boss_damage_multi_timer.set_meta("multi_amount", 0)
+	
 	if player_health_bar.value <= 0:
 		print("PLAYER HAS DIED")
 	elif boss_health_bar.value <= 0:
 		print("BOSS HAS DIED MOVING ONTO NEXT ROUND")
+		current_stage += 1
+		print("Now on round: ", current_stage)
 		
 	
 	# input
-	if playerTurn == true:
-		if press_debounce.time_left == 0:
-			if Input.is_action_just_pressed("up_arrow"):
-				press_debounce.start()
-				arrow_up.texture = ARROW_UP_PRESSED
-				chosen_fruit = option_up.frame
-				choosing_fruit = false
-			elif Input.is_action_just_pressed("down_arrow"):
-				press_debounce.start()
-				arrow_down.texture = ARROW_DOWN_PRESSED
-				chosen_fruit = option_down.frame
-				choosing_fruit = false
-			elif Input.is_action_just_pressed("left_arrow"):
-				press_debounce.start()
-				arrow_left.texture = ARROW_LEFT_PRESSED
-				chosen_fruit = option_left.frame
-				choosing_fruit = false
-			elif Input.is_action_just_pressed("right_arrow"):
-				press_debounce.start()
-				arrow_right.texture = ARROW_RIGHT_PRESSED
-				chosen_fruit = option_right.frame
-				choosing_fruit = false
+	if press_debounce.time_left == 0:
+		if Input.is_action_just_pressed("up_arrow"):
+			press_debounce.start()
+			arrow_up.texture = ARROW_UP_PRESSED
+			chosen_fruit = option_up.frame
+			choosing_fruit = false
+		elif Input.is_action_just_pressed("down_arrow"):
+			press_debounce.start()
+			arrow_down.texture = ARROW_DOWN_PRESSED
+			chosen_fruit = option_down.frame
+			choosing_fruit = false
+		elif Input.is_action_just_pressed("left_arrow"):
+			press_debounce.start()
+			arrow_left.texture = ARROW_LEFT_PRESSED
+			chosen_fruit = option_left.frame
+			choosing_fruit = false
+		elif Input.is_action_just_pressed("right_arrow"):
+			press_debounce.start()
+			arrow_right.texture = ARROW_RIGHT_PRESSED
+			chosen_fruit = option_right.frame
+			choosing_fruit = false
 
-		if Input.is_action_just_released("up_arrow"):
-			arrow_up.texture = ARROW_UP_RELEASED
-		elif Input.is_action_just_released("down_arrow"):
-			arrow_down.texture = ARROW_DOWN_RELEASED
-		elif Input.is_action_just_released("left_arrow"):
-			arrow_left.texture = ARROW_LEFT_RELEASED
-		elif Input.is_action_just_released("right_arrow"):
-			arrow_right.texture = ARROW_RIGHT_RELEASED
+	if Input.is_action_just_released("up_arrow"):
+		arrow_up.texture = ARROW_UP_RELEASED
+	elif Input.is_action_just_released("down_arrow"):
+		arrow_down.texture = ARROW_DOWN_RELEASED
+	elif Input.is_action_just_released("left_arrow"):
+		arrow_left.texture = ARROW_LEFT_RELEASED
+	elif Input.is_action_just_released("right_arrow"):
+		arrow_right.texture = ARROW_RIGHT_RELEASED
 
-	elif bossTurn == true:
-		# boss behavior
-		bossTurn = false
-		playerTurn = true
+
+	# boss behavior
+	if boss_timer.time_left == 0:
 		handle_boss_turn()
+		boss_timer.start()
 		
-	if choosing_fruit == false and playerTurn == true:
-		if chosen_fruit:
-			use_fruit(chosen_fruit)
+	if choosing_fruit == false:
+		print("player chosen fruit: ", chosen_fruit)
+		if chosen_fruit != null:
+			use_fruit(chosen_fruit, false)
 		var fruits = choose_random_fruits()
-		print("fruits: ", fruits)
+		print("player fruits: ", fruits)
 		option_up.frame = fruits[0]
 		option_down.frame = fruits[1]
 		option_left.frame = fruits[2]
 		option_right.frame = fruits[3]
 		choosing_fruit = true
-		playerTurn = false
-		bossTurn = true
 		
 		
