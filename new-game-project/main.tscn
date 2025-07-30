@@ -52,6 +52,29 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_1u8w0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_lswn8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_a6jrf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_xuqvo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_d13ii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_cegan")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ybqpa"]
 animations = [{
 "frames": [{
@@ -84,39 +107,24 @@ animations = [{
 "speed": 0.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_1u8w0"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("19_lswn8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("20_a6jrf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_xuqvo")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_d13ii")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_cegan")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="Main" type="Node2D"]
 script = ExtResource("1_yhtw0")
-
-[node name="UiBgBottom" type="Sprite2D" parent="."]
-position = Vector2(240, 202.5)
-texture = ExtResource("2_xuqvo")
 
 [node name="background" type="AnimatedSprite2D" parent="."]
 position = Vector2(256, 86)
 sprite_frames = SubResource("SpriteFrames_qsp4k")
+
+[node name="boss" type="AnimatedSprite2D" parent="."]
+position = Vector2(350, 91)
+sprite_frames = SubResource("SpriteFrames_1u8w0")
+
+[node name="player" type="Sprite2D" parent="."]
+position = Vector2(150, 100)
+texture = ExtResource("24_qsp4k")
+
+[node name="UiBgBottom" type="Sprite2D" parent="."]
+position = Vector2(240, 202.5)
+texture = ExtResource("2_xuqvo")
 
 [node name="ArrowDown" type="Sprite2D" parent="."]
 position = Vector2(114, 228.5)
@@ -174,14 +182,6 @@ speed_scale = 0.0
 [node name="press_debounce" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
-
-[node name="boss" type="AnimatedSprite2D" parent="."]
-position = Vector2(350, 91)
-sprite_frames = SubResource("SpriteFrames_1u8w0")
-
-[node name="player" type="Sprite2D" parent="."]
-position = Vector2(150, 100)
-texture = ExtResource("24_qsp4k")
 
 [node name="player_damage_multi_timer" type="Timer" parent="."]
 one_shot = true
