@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://eb3s6633ro3i"]
+[gd_scene load_steps=3 format=3 uid="uid://eb3s6633ro3i"]
 
 [ext_resource type="Script" uid="uid://cktfi8gj6l5mb" path="res://credits.gd" id="1_nm7lk"]
+[ext_resource type="FontFile" uid="uid://cwce53obts3vr" path="res://fonts/Awesome 9.ttf" id="2_c1t8d"]
 
 [node name="Credits" type="Control"]
 layout_mode = 3
@@ -11,7 +12,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nm7lk")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="FadeFrame" type="ColorRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.65098)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -26,17 +35,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Line" type="Label" parent="CreditsContainer"]
+[node name="credits_text" type="Label" parent="CreditsContainer"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = -88.5
-offset_top = 500.0
-offset_right = 91.5
-offset_bottom = 1200.0
+offset_top = 450.0
+offset_bottom = 1150.0
 grow_horizontal = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
+theme_override_fonts/font = ExtResource("2_c1t8d")
 text = "A game by Awesome Game Company
 
 Programming
@@ -71,11 +78,21 @@ Jonathan
 ⸻
 
 © 2025 Awesome Game Company. All rights reserved.
-Unauthorized duplication, distribution, reverse engineering, mind reading, or time travel to replicate this game is strictly prohibited.
 Powered by imaginary coffee and late-night bugs.
 The use of any in-game assets outside this software is punishable by the wrath of the pixel gods.
 Godot and Aseprite are property of their respective owners.
 Any resemblance to real persons, living or undead, is purely coincidental.
-Void where prohibited. No animals were harmed during the making of this game, except maybe the codebase.
-Keep calm and press ESC to quit."
+No animals were harmed during the making of this game, except maybe the codebase."
 horizontal_alignment = 1
+
+[node name="title" type="RichTextLabel" parent="CreditsContainer"]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 300.0
+offset_right = 390.0
+offset_bottom = 400.0
+theme_override_fonts/normal_font = ExtResource("2_c1t8d")
+theme_override_font_sizes/normal_font_size = 30
+text = "Food Fight Frenzy"
+horizontal_alignment = 1
+vertical_alignment = 1
