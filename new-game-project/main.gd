@@ -91,16 +91,26 @@ var bosses = [
 func round_to_dec(num, digit):
 	return round(num * pow(10.0, digit)) / pow(10.0, digit)
 
-func show_characters():
-	anim_player.play("character_pop_up_anim")
-	await anim_player.animation_finished
 
 func _ready() -> void:
+	start_sequence()
+
+
+func start_sequence() -> void:
+	await _run_intro_sequence()
+	start_game()
+
+func _run_intro_sequence() -> void:
+	print("starting character animation")
+	anim_player.play("character_pop_up_anim")
 	update_stage()
-	await get_tree().create_timer(1).timeout
-	anim_player.play("fadeFrameOut")
 	await anim_player.animation_finished
-	show_characters()
+	print("finished animations")
+	
+	
+
+func start_game() -> void:
+	await get_tree().create_timer(0.5).timeout
 	round_timer.start()
 	boss_timer.start()
 	game_running = true

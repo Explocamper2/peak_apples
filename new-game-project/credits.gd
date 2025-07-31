@@ -7,9 +7,9 @@ extends Control
 @onready var title: RichTextLabel = $CreditsContainer/title
 @onready var fade_frame: ColorRect = $FadeFrame
 
-const base_speed := 50.0
-const speed_up_multiplier := 5.0
-const lerp_speed = 2.5
+const base_speed := 30.0
+const speed_up_multiplier := 7.0
+const lerp_speed = 3.0
 const title_color := Color(0.541176, 0.168627, 0.886275, 1)
 var scroll_speed := base_speed
 var current_speed := base_speed
