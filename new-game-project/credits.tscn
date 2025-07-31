@@ -18,14 +18,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 1)
 
-[node name="FadeFrame" type="ColorRect" parent="."]
-visible = false
-modulate = Color(1, 1, 1, 0.65098)
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0, 0, 0, 1)
-
 [node name="CreditsContainer" type="Control" parent="."]
 clip_contents = true
 layout_mode = 1

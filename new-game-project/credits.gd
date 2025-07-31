@@ -18,19 +18,16 @@ var target_speed := base_speed
 var started = false
 var finished = false
 
-func fade_tween(transparency : int, duration : int):
-	var fade_tween = get_tree().create_tween()
-	fade_tween.tween_property($Sprite, "modulate", Color(0, 0, 0, transparency), duration)
-	fade_tween.tween_callback($Sprite.queue_free)
+
 
 
 func finish():
-	fade_tween(0, 1)
+	await get_tree().create_timer(1).timeout
 	finished = true
+	get_tree().change_scene_to_file("res://main_menu.tscn")
 
 
 func _ready():
-	fade_tween(1, 1.5)
 	started = true
 
 func _process(delta):

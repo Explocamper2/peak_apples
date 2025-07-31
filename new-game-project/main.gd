@@ -25,6 +25,7 @@ extends Node2D
 @onready var boss_combo_display: Label = $boss_combo_display
 @onready var camera: Camera2D = $Camera
 @onready var boss_health_indicator: Label = $boss_health_indicator
+@onready var fade_frame: ColorRect = $fade_frame
 
 # images
 const ARROW_UP_RELEASED = preload("res://art/placeholders/arrow_up.png")
@@ -48,6 +49,8 @@ var player_combo_count = 0
 var boss_combo_count = 0
 var damage_multi_active = false
 var apple_low_chance = false
+
+var game_running = false
 
 
 enum Difficulty { EASY, MEDIUM, HARD }
@@ -82,15 +85,26 @@ var bosses = [
 	}
 ]
 
+func fade_tween(transparency : int, duration : int):
+	var fadetween = get_tree().create_tween()
+	fadetween.tween_property(fade_frame, "modulate", Color(0, 0, 0, transparency), duration)
+	fadetween.tween_callback(fade_frame.queue_free)
 
 func round_to_dec(num, digit):
 	return round(num * pow(10.0, digit)) / pow(10.0, digit)
 
+func show_characters():
+	pass
+
+
 func _ready() -> void:
+	await get_tree().create_timer(1).timeout
+	fade_tween(1,2)
 	round_timer.start()
 	boss_timer.start()
 	update_stage()
-	get_tree().change_scene_to_file("res://credits.tscn")
+	
+	game_running = true
 
 func update_stage():
 	for v in bosses:
@@ -392,27 +406,28 @@ func _process(_delta) -> void:
 		
 	
 	# input
-	if press_debounce.time_left == 0:
-		if Input.is_action_just_pressed("up_arrow"):
-			press_debounce.start()
-			arrow_up.texture = ARROW_UP_PRESSED
-			chosen_fruit = option_up.frame
-			choosing_fruit = false
-		elif Input.is_action_just_pressed("down_arrow"):
-			press_debounce.start()
-			arrow_down.texture = ARROW_DOWN_PRESSED
-			chosen_fruit = option_down.frame
-			choosing_fruit = false
-		elif Input.is_action_just_pressed("left_arrow"):
-			press_debounce.start()
-			arrow_left.texture = ARROW_LEFT_PRESSED
-			chosen_fruit = option_left.frame
-			choosing_fruit = false
-		elif Input.is_action_just_pressed("right_arrow"):
-			press_debounce.start()
-			arrow_right.texture = ARROW_RIGHT_PRESSED
-			chosen_fruit = option_right.frame
-			choosing_fruit = false
+	if game_running == true:
+		if press_debounce.time_left == 0:
+			if Input.is_action_just_pressed("up_arrow"):
+				press_debounce.start()
+				arrow_up.texture = ARROW_UP_PRESSED
+				chosen_fruit = option_up.frame
+				choosing_fruit = false
+			elif Input.is_action_just_pressed("down_arrow"):
+				press_debounce.start()
+				arrow_down.texture = ARROW_DOWN_PRESSED
+				chosen_fruit = option_down.frame
+				choosing_fruit = false
+			elif Input.is_action_just_pressed("left_arrow"):
+				press_debounce.start()
+				arrow_left.texture = ARROW_LEFT_PRESSED
+				chosen_fruit = option_left.frame
+				choosing_fruit = false
+			elif Input.is_action_just_pressed("right_arrow"):
+				press_debounce.start()
+				arrow_right.texture = ARROW_RIGHT_PRESSED
+				chosen_fruit = option_right.frame
+				choosing_fruit = false
 
 	if Input.is_action_just_released("up_arrow"):
 		arrow_up.texture = ARROW_UP_RELEASED
@@ -425,20 +440,21 @@ func _process(_delta) -> void:
 
 
 	# boss behavior
-	if boss_timer.time_left == 0:
-		handle_boss_turn()
-		boss_timer.start()
-		
-	if choosing_fruit == false:
-		print("player chosen fruit: ", chosen_fruit)
-		if chosen_fruit != null:
-			use_fruit(chosen_fruit, false)
-		var fruits = choose_random_fruits()
-		print("player fruits: ", fruits)
-		option_up.frame = fruits[0]
-		option_down.frame = fruits[1]
-		option_left.frame = fruits[2]
-		option_right.frame = fruits[3]
-		choosing_fruit = true
+	if game_running == true:
+		if boss_timer.time_left == 0:
+			handle_boss_turn()
+			boss_timer.start()
+			
+		if choosing_fruit == false:
+			print("player chosen fruit: ", chosen_fruit)
+			if chosen_fruit != null:
+				use_fruit(chosen_fruit, false)
+			var fruits = choose_random_fruits()
+			print("player fruits: ", fruits)
+			option_up.frame = fruits[0]
+			option_down.frame = fruits[1]
+			option_left.frame = fruits[2]
+			option_right.frame = fruits[3]
+			choosing_fruit = true
 		
 		
