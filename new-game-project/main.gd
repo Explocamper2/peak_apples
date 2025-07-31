@@ -90,6 +90,7 @@ func _ready() -> void:
 	round_timer.start()
 	boss_timer.start()
 	update_stage()
+	get_tree().change_scene_to_file("res://credits.tscn")
 
 func update_stage():
 	for v in bosses:

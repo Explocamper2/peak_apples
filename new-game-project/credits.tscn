@@ -1,0 +1,81 @@
+[gd_scene load_steps=2 format=3 uid="uid://eb3s6633ro3i"]
+
+[ext_resource type="Script" uid="uid://cktfi8gj6l5mb" path="res://credits.gd" id="1_nm7lk"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nm7lk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="CreditsContainer" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Line" type="Label" parent="CreditsContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -88.5
+offset_top = 500.0
+offset_right = 91.5
+offset_bottom = 1200.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "A game by Awesome Game Company
+
+Programming
+Miles
+Miles
+
+Art
+Pascal
+
+Music
+Pascal
+
+Sound Effects
+Miles
+Pascal
+
+Testers
+Miles
+Pascal
+Name 3
+
+Tools used
+Developed with Godot Engine
+https://godotengine.org/license
+Art created with Aseprite
+https://www.aseprite.org
+
+Special thanks
+Alex
+Jonathan
+
+⸻
+
+© 2025 Awesome Game Company. All rights reserved.
+Unauthorized duplication, distribution, reverse engineering, mind reading, or time travel to replicate this game is strictly prohibited.
+Powered by imaginary coffee and late-night bugs.
+The use of any in-game assets outside this software is punishable by the wrath of the pixel gods.
+Godot and Aseprite are property of their respective owners.
+Any resemblance to real persons, living or undead, is purely coincidental.
+Void where prohibited. No animals were harmed during the making of this game, except maybe the codebase.
+Keep calm and press ESC to quit."
+horizontal_alignment = 1

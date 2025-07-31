@@ -14,13 +14,13 @@
 [ext_resource type="Texture2D" uid="uid://cyfrrkdqo7c0a" path="res://art/placeholders/fruit_apple_rotten.png" id="7_r215p"]
 [ext_resource type="Texture2D" uid="uid://bguhry7x12osd" path="res://art/placeholders/fruit_banana.png" id="8_ulu4f"]
 [ext_resource type="Texture2D" uid="uid://bayyi5sb1ylo5" path="res://art/placeholders/fruit_berry.png" id="9_ggtuu"]
+[ext_resource type="Texture2D" uid="uid://3dgddf6od4q5" path="res://art/portrait_enemy_5.png" id="10_a6jrf"]
 [ext_resource type="Texture2D" uid="uid://npyxw2o32fj7" path="res://art/placeholders/fruit_durian.png" id="10_c2tt4"]
 [ext_resource type="Texture2D" uid="uid://byslpaacpnnqu" path="res://art/placeholders/fruit_eaten_apple.png" id="11_p3rfw"]
 [ext_resource type="Texture2D" uid="uid://bjfhrme3q0qwm" path="res://art/placeholders/fruit_hot_pepper.png" id="12_n5l1e"]
 [ext_resource type="Texture2D" uid="uid://cpxejfc6npgee" path="res://art/placeholders/fruit_reaper_pepper.png" id="13_uv1lg"]
 [ext_resource type="Texture2D" uid="uid://ha61erkx3qgd" path="res://art/placeholders/Backgrounds/ui_bg_level_1.png" id="14_w48qg"]
 [ext_resource type="Texture2D" uid="uid://cjo6qwn46bfi4" path="res://art/placeholders/Characters/boss.png" id="15_cegan"]
-[ext_resource type="Texture2D" uid="uid://deg3ynldk12v1" path="res://art/placeholders/Characters/enemy_4.png" id="19_d13ii"]
 [ext_resource type="Texture2D" uid="uid://c553s8uy3q0x3" path="res://art/portrait_enemy_1.png" id="19_lswn8"]
 [ext_resource type="Texture2D" uid="uid://bd7wr1rrwir2c" path="res://art/portrait_enemy_2.png" id="20_a6jrf"]
 [ext_resource type="Texture2D" uid="uid://dk75uubntronw" path="res://art/portrait_enemy_3.png" id="21_xuqvo"]
@@ -65,7 +65,7 @@ animations = [{
 "texture": ExtResource("21_xuqvo")
 }, {
 "duration": 1.0,
-"texture": ExtResource("19_d13ii")
+"texture": ExtResource("10_a6jrf")
 }, {
 "duration": 1.0,
 "texture": ExtResource("15_cegan")
