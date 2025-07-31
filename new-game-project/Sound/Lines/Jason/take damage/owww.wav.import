@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://003o0wplbu35"
+path="res://.godot/imported/owww.wav-3f9b403f20aa958f72c5a07234c0324c.sample"
+
+[deps]
+
+source_file="res://Sound/Lines/Jason/take damage/owww.wav"
+dest_files=["res://.godot/imported/owww.wav-3f9b403f20aa958f72c5a07234c0324c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

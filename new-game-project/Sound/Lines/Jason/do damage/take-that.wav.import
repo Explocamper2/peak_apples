@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ev0j4hvy3w0p"
+path="res://.godot/imported/take-that.wav-5ca828ca7f441c0e65a5da441272dfe6.sample"
+
+[deps]
+
+source_file="res://Sound/Lines/Jason/do damage/take-that.wav"
+dest_files=["res://.godot/imported/take-that.wav-5ca828ca7f441c0e65a5da441272dfe6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

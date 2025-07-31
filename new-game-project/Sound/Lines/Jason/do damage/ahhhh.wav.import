@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bkoaqk2nkraue"
+path="res://.godot/imported/ahhhh.wav-c61c1dec08a5599b7ab0ef2c7c0f7c5f.sample"
+
+[deps]
+
+source_file="res://Sound/Lines/Jason/do damage/ahhhh.wav"
+dest_files=["res://.godot/imported/ahhhh.wav-c61c1dec08a5599b7ab0ef2c7c0f7c5f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

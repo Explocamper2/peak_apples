@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://befvmehj1a6re"
+path="res://.godot/imported/grunt-2.wav-cd5c6ad937d7d9bfcc91c67883856421.sample"
+
+[deps]
+
+source_file="res://Sound/Lines/Jason/do damage/grunt-2.wav"
+dest_files=["res://.godot/imported/grunt-2.wav-cd5c6ad937d7d9bfcc91c67883856421.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
