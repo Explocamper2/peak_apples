@@ -26,6 +26,8 @@ extends Node2D
 @onready var camera: Camera2D = $Camera
 @onready var boss_health_indicator: Label = $boss_health_indicator
 @onready var fade_frame: ColorRect = $fade_frame
+@onready var anim_player: AnimationPlayer = $AnimPlayer
+
 
 # images
 const ARROW_UP_RELEASED = preload("res://art/placeholders/arrow_up.png")
@@ -85,25 +87,22 @@ var bosses = [
 	}
 ]
 
-func fade_tween(transparency : int, duration : int):
-	var fadetween = get_tree().create_tween()
-	fadetween.tween_property(fade_frame, "modulate", Color(0, 0, 0, transparency), duration)
-	fadetween.tween_callback(fade_frame.queue_free)
 
 func round_to_dec(num, digit):
 	return round(num * pow(10.0, digit)) / pow(10.0, digit)
 
 func show_characters():
-	pass
-
+	anim_player.play("character_pop_up_anim")
+	await anim_player.animation_finished
 
 func _ready() -> void:
+	update_stage()
 	await get_tree().create_timer(1).timeout
-	fade_tween(1,2)
+	anim_player.play("fadeFrameOut")
+	await anim_player.animation_finished
+	show_characters()
 	round_timer.start()
 	boss_timer.start()
-	update_stage()
-	
 	game_running = true
 
 func update_stage():

@@ -131,10 +131,76 @@ tracks/1/keys = {
 "points": PackedFloat32Array(195, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("boss:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(350, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("boss:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(100, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("fade_frame:modulate:r")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("fade_frame:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("fade_frame:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("fade_frame:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_kq58d"]
 resource_name = "character_pop_up_animation"
-length = 2.0
+length = 1.5
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -153,20 +219,85 @@ tracks/1/path = NodePath("player:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(195, -0.25, 0, 0.633333, 12, 100, -0.0666666, 73, 0.157417, 24, 95, -0.20925, 28, 0.25, 0),
+"times": PackedFloat32Array(0, 1.13333, 1.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("boss:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(195, -0.25, 0, 0.25, 0, 95, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(350, -0.25, 0, 0.25, 0, 350, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1.5)
 }
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("boss:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(200, -0.25, 0, 0.533333, 7, 100, -0.0666666, 77, 0.157417, 21, 100, -0.20925, 24, 0.25, 0),
+"times": PackedFloat32Array(0, 1.13333, 1.5)
+}
 
-[sub_resource type="Animation" id="Animation_seu75"]
-resource_name = "boss_pop_up_anim"
-length = 2.0
+[sub_resource type="Animation" id="Animation_xuqvo"]
+resource_name = "fadeFrameOut"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fade_frame:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("fade_frame:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("fade_frame:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("fade_frame:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_htxhm"]
 _data = {
 &"RESET": SubResource("Animation_qsp4k"),
-&"boss_pop_up_anim": SubResource("Animation_seu75"),
-&"player_pop_up_anim": SubResource("Animation_kq58d")
+&"character_pop_up_anim": SubResource("Animation_kq58d"),
+&"fadeFrameOut": SubResource("Animation_xuqvo")
 }
 
 [node name="Main" type="Node2D"]
@@ -177,7 +308,7 @@ position = Vector2(240, 67.5)
 sprite_frames = SubResource("SpriteFrames_qsp4k")
 
 [node name="boss" type="AnimatedSprite2D" parent="."]
-position = Vector2(350, 200)
+position = Vector2(350, 100)
 sprite_frames = SubResource("SpriteFrames_1u8w0")
 offset = Vector2(0, -7)
 
@@ -186,7 +317,6 @@ position = Vector2(150, 195)
 texture = ExtResource("24_qsp4k")
 
 [node name="UiBgBottom" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(240, 202.5)
 texture = ExtResource("2_xuqvo")
 
@@ -306,12 +436,12 @@ position = Vector2(240, 135)
 script = ExtResource("27_a6jrf")
 
 [node name="fade_frame" type="ColorRect" parent="."]
-visible = false
+modulate = Color(0, 0, 0, 0)
 offset_right = 480.0
 offset_bottom = 270.0
 color = Color(0, 0, 0, 1)
 
-[node name="character_start_anim" type="AnimationPlayer" parent="."]
+[node name="AnimPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_htxhm")
 }
