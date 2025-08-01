@@ -33,7 +33,7 @@
 [ext_resource type="Script" uid="uid://bxkntlgk17kpd" path="res://sound_manager.gd" id="29_jq2sk"]
 [ext_resource type="Texture2D" uid="uid://kfwvci3ky7un" path="res://art/UI/pause_menu.png" id="31_htxhm"]
 [ext_resource type="AudioStream" uid="uid://b7q3sxb5hxqyi" path="res://Sound/bgm.wav" id="31_seu75"]
-[ext_resource type="Script" uid="uid://bigg4bosm3gwp" path="res://pause_menu.gd" id="32_jq2sk"]
+[ext_resource type="Script" path="res://pause_menu.gd" id="32_jq2sk"]
 [ext_resource type="AudioStream" uid="uid://cv0blngjlevy2" path="res://Sound/videogame-death-sound-43894.mp3" id="32_ok6jj"]
 [ext_resource type="Texture2D" uid="uid://bnoke3dwasjre" path="res://art/UI/game_over.png" id="34_4k2k6"]
 [ext_resource type="Texture2D" uid="uid://cjh3r8islvv7l" path="res://art/UI/victory.png" id="35_0rl1p"]
