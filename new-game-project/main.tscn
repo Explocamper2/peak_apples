@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bivscnvnggdmy"]
+[gd_scene load_steps=43 format=3 uid="uid://bivscnvnggdmy"]
 
 [ext_resource type="Script" uid="uid://77vg2gqbjcx" path="res://main.gd" id="1_yhtw0"]
 [ext_resource type="Texture2D" uid="uid://b8bbcjfv3q8im" path="res://art/Backgrounds/bg_level_1.png" id="2_qsp4k"]
@@ -30,7 +30,10 @@
 [ext_resource type="Texture2D" uid="uid://bdhjblmxf385y" path="res://art/UI/ui_hp_bar_progress.png" id="26_seu75"]
 [ext_resource type="Script" uid="uid://08a4ywksd6fj" path="res://camera.gd" id="27_a6jrf"]
 [ext_resource type="Script" uid="uid://bxkntlgk17kpd" path="res://sound_manager.gd" id="29_jq2sk"]
+[ext_resource type="Texture2D" uid="uid://kfwvci3ky7un" path="res://art/UI/pause_menu.png" id="31_htxhm"]
 [ext_resource type="AudioStream" uid="uid://b7q3sxb5hxqyi" path="res://Sound/bgm.wav" id="31_seu75"]
+[ext_resource type="Script" uid="uid://bigg4bosm3gwp" path="res://pause_menu.gd" id="32_jq2sk"]
+[ext_resource type="Texture2D" uid="uid://bnoke3dwasjre" path="res://art/UI/game_over.png" id="34_4k2k6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qsp4k"]
 animations = [{
@@ -396,7 +399,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="roundTimer" type="Timer" parent="."]
-wait_time = 60.0
+wait_time = 90.0
 one_shot = true
 
 [node name="OptionUp" type="AnimatedSprite2D" parent="."]
@@ -449,12 +452,13 @@ scale = Vector2(0.5, 0.5)
 text = "Combo: 0"
 
 [node name="boss_combo_display" type="Label" parent="."]
-offset_left = 399.0
+offset_left = 427.0
 offset_top = 148.0
-offset_right = 536.0
+offset_right = 508.0
 offset_bottom = 171.0
 scale = Vector2(0.5, 0.5)
 text = "Combo: 0"
+horizontal_alignment = 2
 
 [node name="playerHealthBar" type="TextureProgressBar" parent="."]
 offset_left = 17.0
@@ -506,10 +510,21 @@ script = ExtResource("29_jq2sk")
 [node name="SoundPlayer2" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStream_qsp4k")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="pause_menu" type="TextureRect" parent="."]
+process_mode = 3
+visible = false
 offset_right = 480.0
 offset_bottom = 270.0
+texture = ExtResource("31_htxhm")
+script = ExtResource("32_jq2sk")
 
 [node name="BGM_Player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("31_seu75")
+volume_db = -15.0
 autoplay = true
+
+[node name="game_over" type="TextureRect" parent="."]
+visible = false
+offset_right = 480.0
+offset_bottom = 270.0
+texture = ExtResource("34_4k2k6")
