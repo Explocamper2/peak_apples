@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://b2h5hr2lfyrqn"]
 
 [ext_resource type="Script" uid="uid://6m61nodkoy4p" path="res://main_menu.gd" id="1_06t4h"]
-[ext_resource type="FontFile" uid="uid://cwce53obts3vr" path="res://fonts/Awesome 9.ttf" id="2_7vrkn"]
+[ext_resource type="Texture2D" uid="uid://dmf00ma68wq72" path="res://art/UI/title_screen.png" id="2_nlkkf"]
 [ext_resource type="Texture2D" uid="uid://c5rkydi171xbe" path="res://art/Buttons/btn_play_normal.png" id="3_jix8l"]
 [ext_resource type="Texture2D" uid="uid://w3eaxjy6ek7i" path="res://art/Buttons/btn_credits_normal.png" id="4_glbon"]
 [ext_resource type="Texture2D" uid="uid://cl18wo756numd" path="res://art/Buttons/btn_play_pressed.png" id="4_nlkkf"]
@@ -158,18 +158,12 @@ _data = {
 [node name="Main Menu" type="Node2D"]
 script = ExtResource("1_06t4h")
 
-[node name="title" type="Label" parent="."]
-offset_left = 27.5
-offset_top = 25.0
-offset_right = 452.5
-offset_bottom = 75.0
-theme_override_fonts/font = ExtResource("2_7vrkn")
-theme_override_font_sizes/font_size = 47
-text = "Fruit Fight Frenzy"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="TitleScreen" type="Sprite2D" parent="."]
+position = Vector2(240, 135)
+texture = ExtResource("2_nlkkf")
 
 [node name="fade_frame" type="ColorRect" parent="."]
+visible = false
 modulate = Color(0, 0, 0, 0)
 z_index = 1
 offset_right = 480.0
@@ -179,18 +173,18 @@ color = Color(0, 0, 0, 1)
 [node name="play_button" type="TextureButton" parent="."]
 z_index = 2
 offset_left = 172.0
-offset_top = 115.0
+offset_top = 151.0
 offset_right = 300.0
-offset_bottom = 151.0
+offset_bottom = 187.0
 texture_normal = ExtResource("3_jix8l")
 texture_pressed = ExtResource("4_nlkkf")
 
 [node name="credits_button" type="TextureButton" parent="."]
 z_index = 2
 offset_left = 172.0
-offset_top = 165.0
+offset_top = 201.0
 offset_right = 300.0
-offset_bottom = 201.0
+offset_bottom = 237.0
 texture_normal = ExtResource("4_glbon")
 texture_pressed = ExtResource("6_qe12f")
 

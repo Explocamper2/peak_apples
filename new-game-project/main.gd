@@ -31,7 +31,8 @@ extends Node2D
 @onready var bgm_player: AudioStreamPlayer = $BGM_Player
 @onready var pause_menu: TextureRect = $pause_menu
 @onready var game_over: TextureRect = $game_over
-
+@onready var victory_screen: Sprite2D = $VictoryScreen
+const VIDEOGAME_DEATH_SOUND_43894 = preload("res://Sound/videogame-death-sound-43894.mp3")
 
 # images
 const ARROW_UP_RELEASED = preload("res://art/Arrows/arrow_up.png")
@@ -50,7 +51,7 @@ var playerHealth = 100
 var bossHealth = 100
 var choosing_fruit = false
 var chosen_fruit = null
-var current_stage = 1
+var current_stage = 5
 var player_combo_count = 0
 var boss_combo_count = 0
 var damage_multi_active = false
@@ -410,7 +411,6 @@ func handle_boss_turn():
 
 
 func _process(_delta) -> void:
-	
 	# UI
 	player_combo_display.text = "Combo: " + str(player_combo_count) 
 	boss_combo_display.text = "Combo: " + str(boss_combo_count)
@@ -434,20 +434,27 @@ func _process(_delta) -> void:
 		get_tree().change_scene_to_file("res://main_menu.tscn")
 	elif boss_health_bar.value <= 0:
 		print("BOSS HAS DIED MOVING ONTO NEXT ROUND")
+		if current_stage == 5:
+				victory_screen.visible = true
+				game_running = false
+				await get_tree().create_timer(2).timeout
 		current_stage += 1
 		bossHealth = 100
 		playerHealth = 100
 		print("Now on round: ", current_stage)
 		update_stage()
+		
 	if round_timer.time_left == 0 and game_running == true:
 		if playerHealth <  bossHealth:
 			print("Boss Wins!")
 			game_running = false
 			game_over.visible = true
-			await get_tree().create_timer(5).timeout
+			await get_tree().create_timer(2.5).timeout
 			get_tree().change_scene_to_file("res://main_menu.tscn")
 		elif bossHealth < playerHealth:
 			print("Player Wins")
+			if current_stage == 5:
+				victory_screen.visible = true
 			current_stage += 1
 			bossHealth = 100
 			playerHealth = 100
