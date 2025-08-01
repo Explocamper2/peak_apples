@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://vqjup7l58exm"
-path="res://.godot/imported/oww-2.wav-972758010d0a181deaaf9ebfb97c1d00.sample"
+uid="uid://b6yxmge452jvj"
+path="res://.godot/imported/ow.wav-8370347e553eae98ebfe5a8b33834062.sample"
 
 [deps]
 
-source_file="res://Sound/Lines/Raph/take damage/oww-2.wav"
-dest_files=["res://.godot/imported/oww-2.wav-972758010d0a181deaaf9ebfb97c1d00.sample"]
+source_file="res://Sound/Lines/Simon/take damage/ow.wav"
+dest_files=["res://.godot/imported/ow.wav-8370347e553eae98ebfe5a8b33834062.sample"]
 
 [params]
 

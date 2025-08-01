@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2h5hr2lfyrqn"]
+[gd_scene load_steps=11 format=3 uid="uid://b2h5hr2lfyrqn"]
 
 [ext_resource type="Script" uid="uid://6m61nodkoy4p" path="res://main_menu.gd" id="1_06t4h"]
 [ext_resource type="FontFile" uid="uid://cwce53obts3vr" path="res://fonts/Awesome 9.ttf" id="2_7vrkn"]
 [ext_resource type="Texture2D" uid="uid://c5rkydi171xbe" path="res://art/Buttons/btn_play_normal.png" id="3_jix8l"]
 [ext_resource type="Texture2D" uid="uid://w3eaxjy6ek7i" path="res://art/Buttons/btn_credits_normal.png" id="4_glbon"]
+[ext_resource type="Texture2D" uid="uid://cl18wo756numd" path="res://art/Buttons/btn_play_pressed.png" id="4_nlkkf"]
+[ext_resource type="Texture2D" uid="uid://djg4c3ariwhdf" path="res://art/Buttons/btn_credits_pressed.png" id="6_qe12f"]
 
 [sub_resource type="Animation" id="Animation_06t4h"]
 resource_name = "FadeFrameIn"
@@ -142,7 +144,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 
@@ -167,26 +169,30 @@ text = "Fruit Fight Frenzy"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="play_button" type="Button" parent="."]
-offset_left = 172.0
-offset_top = 115.0
-offset_right = 308.0
-offset_bottom = 160.0
-icon = ExtResource("3_jix8l")
-
-[node name="credits_button" type="Button" parent="."]
-offset_left = 172.0
-offset_top = 165.0
-offset_right = 308.0
-offset_bottom = 210.0
-icon = ExtResource("4_glbon")
-
 [node name="fade_frame" type="ColorRect" parent="."]
-visible = false
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0, 0, 0, 0)
+z_index = 1
 offset_right = 480.0
 offset_bottom = 270.0
 color = Color(0, 0, 0, 1)
+
+[node name="play_button" type="TextureButton" parent="."]
+z_index = 2
+offset_left = 172.0
+offset_top = 115.0
+offset_right = 300.0
+offset_bottom = 151.0
+texture_normal = ExtResource("3_jix8l")
+texture_pressed = ExtResource("4_nlkkf")
+
+[node name="credits_button" type="TextureButton" parent="."]
+z_index = 2
+offset_left = 172.0
+offset_top = 165.0
+offset_right = 300.0
+offset_bottom = 201.0
+texture_normal = ExtResource("4_glbon")
+texture_pressed = ExtResource("6_qe12f")
 
 [node name="AnimPlayer" type="AnimationPlayer" parent="."]
 libraries = {

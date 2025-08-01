@@ -47,11 +47,13 @@ var playerHealth = 100
 var bossHealth = 100
 var choosing_fruit = false
 var chosen_fruit = null
-var current_stage = 0
+var current_stage = 2
 var player_combo_count = 0
 var boss_combo_count = 0
 var damage_multi_active = false
 var apple_low_chance = false
+
+var testing = false
 
 var game_running = false
 
@@ -82,7 +84,7 @@ var bosses = [
 		"stage": 4
 	},
 	{
-		"name": "Boss",
+		"name": "boss",
 		"frame": 4,
 		"stage": 5
 	}
@@ -94,6 +96,11 @@ func round_to_dec(num, digit):
 
 
 func _ready() -> void:
+	var fruits = choose_random_fruits()
+	option_up.frame = fruits[0]
+	option_down.frame = fruits[1]
+	option_left.frame = fruits[2]
+	option_right.frame = fruits[3]
 	start_sequence()
 
 
@@ -140,8 +147,10 @@ func apply_damage(target, a, damageCombo):
 	# get boss name
 	var boss_name = null
 	for boss in bosses:
+		print("bosssss: ", boss)
 		if boss["stage"] == current_stage:
 			boss_name = boss["name"]
+			print(boss_name)
 	
 	# actually take the damage
 	if target == "boss":
@@ -150,7 +159,7 @@ func apply_damage(target, a, damageCombo):
 		var original_pos = Player.position
 		var attack_offset = Vector2(30, 0)
 		# camera shake
-		camera.apply_shake(amount)
+		camera.apply_shake(amount+2)
 		tween.tween_property(Player, "position", original_pos + attack_offset, 0.075).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tween.tween_property(Player, "position", original_pos, 0.03).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 		bossHealth -= amount
@@ -162,7 +171,7 @@ func apply_damage(target, a, damageCombo):
 		var original_pos = Boss.position
 		var attack_offset = Vector2(-30, 0)
 		# camera shake
-		camera.apply_shake(amount)
+		camera.apply_shake(amount+2)
 		tween.tween_property(Boss, "position", original_pos + attack_offset, 0.075).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tween.tween_property(Boss, "position", original_pos, 0.03).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 		playerHealth -= amount
@@ -315,7 +324,7 @@ func evaluate_fruit(index: int) -> float:
 			if effect.target == "player":
 				score += aggression * (20.0 * (1.0 - playerHealth / 100.0))
 			else:
-				score -= 100.0
+				score -= 15.0
 		"heal":
 			if effect.target == "boss" and bossHealth < 60:
 				score += self_preservation * ((100.0 - bossHealth) * 0.5)
@@ -400,7 +409,8 @@ func _process(_delta) -> void:
 	player_combo_display.text = "Combo: " + str(player_combo_count) 
 	boss_combo_display.text = "Combo: " + str(boss_combo_count)
 	# Timer
-	timer_text_box.text = str(round(round_timer.time_left))
+	timer_text_box.text = str(int(round(round_timer.time_left)))
+	print(timer_text_box.text)
 	
 	# health bar
 	player_health_bar.value = round_to_dec(playerHealth,1)
@@ -468,10 +478,16 @@ func _process(_delta) -> void:
 				use_fruit(chosen_fruit, false)
 			var fruits = choose_random_fruits()
 			print("player fruits: ", fruits)
-			option_up.frame = fruits[0]
-			option_down.frame = fruits[1]
-			option_left.frame = fruits[2]
-			option_right.frame = fruits[3]
+			if testing == true:
+				option_up.frame = 0
+				option_down.frame = 0 
+				option_left.frame = 2
+				option_right.frame = 2
+			else:
+				option_up.frame = fruits[0]
+				option_down.frame = fruits[1]
+				option_left.frame = fruits[2]
+				option_right.frame = fruits[3]
 			choosing_fruit = true
 		
 		

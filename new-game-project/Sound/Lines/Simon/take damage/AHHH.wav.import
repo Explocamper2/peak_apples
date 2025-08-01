@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bkoaqk2nkraue"
-path="res://.godot/imported/ahhhh.wav-c61c1dec08a5599b7ab0ef2c7c0f7c5f.sample"
+uid="uid://07auhljcypc0"
+path="res://.godot/imported/AHHH.wav-59c6ae2e5f92eedc9387c03cd4857311.sample"
 
 [deps]
 
-source_file="res://Sound/Lines/Jason/do damage/ahhhh.wav"
-dest_files=["res://.godot/imported/ahhhh.wav-c61c1dec08a5599b7ab0ef2c7c0f7c5f.sample"]
+source_file="res://Sound/Lines/Simon/take damage/AHHH.wav"
+dest_files=["res://.godot/imported/AHHH.wav-59c6ae2e5f92eedc9387c03cd4857311.sample"]
 
 [params]
 
