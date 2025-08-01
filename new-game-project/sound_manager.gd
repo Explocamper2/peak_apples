@@ -51,6 +51,7 @@ func play_boss_sound(boss_name: String, sound_type: String) -> void:
 	if boss_sounds.has(boss_name) and boss_sounds[boss_name].has(sound_type):
 		var sounds = boss_sounds[boss_name][sound_type]
 		stream = sounds[randi() % sounds.size()]
+		print(sounds, stream)
 		play()
 	else:
 		push_warning("Missing sound for %s - %s" % [boss_name, sound_type])
