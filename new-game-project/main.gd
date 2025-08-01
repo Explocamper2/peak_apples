@@ -27,18 +27,19 @@ extends Node2D
 @onready var boss_health_indicator: Label = $boss_health_indicator
 @onready var fade_frame: ColorRect = $fade_frame
 @onready var anim_player: AnimationPlayer = $AnimPlayer
+@onready var sound_manager: SoundManager = $SoundPlayer as SoundManager
 
 
 # images
-const ARROW_UP_RELEASED = preload("res://art/placeholders/arrow_up.png")
-const ARROW_DOWN_RELEASED = preload("res://art/placeholders/arrow_down.png")
-const ARROW_LEFT_RELEASED = preload("res://art/placeholders/arrow_left.png")
-const ARROW_RIGHT_RELEASED = preload("res://art/placeholders/arrow_right.png")
-const ARROW_UP_PRESSED = preload("res://art/placeholders/arrow-up_pressed.png")
-const ARROW_DOWN_PRESSED = preload("res://art/placeholders/arrow_down_pressed.png")
-const ARROW_LEFT_PRESSED = preload("res://art/placeholders/arrow_left_pressed.png")
-const ARROW_RIGHT_PRESSED = preload("res://art/placeholders/arrow_right_pressed.png")
-const PLAYER_AVATAR = preload("res://art/placeholders/Characters/player.png")
+const ARROW_UP_RELEASED = preload("res://art/Arrows/arrow_up.png")
+const ARROW_DOWN_RELEASED = preload("res://art/Arrows/arrow_down.png")
+const ARROW_LEFT_RELEASED = preload("res://art/Arrows/arrow_left.png")
+const ARROW_RIGHT_RELEASED = preload("res://art/Arrows/arrow_right.png")
+const ARROW_UP_PRESSED = preload("res://art/Arrows/arrow_up_pressed.png")
+const ARROW_DOWN_PRESSED = preload("res://art/Arrows/arrow_down_pressed.png")
+const ARROW_LEFT_PRESSED = preload("res://art/Arrows/arrow_left_pressed.png")
+const ARROW_RIGHT_PRESSED = preload("res://art/Arrows/arrow_right_pressed.png")
+const PLAYER_AVATAR = preload("res://art/portrait_player.png")
 
 const DEFAULT_CHANCE = 12.5
 
@@ -136,8 +137,15 @@ func apply_damage(target, a, damageCombo):
 	boss_health_indicator.text = str(-amount)
 	print("Dealing ", amount, " damage to ", target)
 	
+	# get boss name
+	var boss_name = null
+	for boss in bosses:
+		if boss["stage"] == current_stage:
+			boss_name = boss["name"]
+	
 	# actually take the damage
 	if target == "boss":
+		sound_manager.play_boss_sound(boss_name, "hit")
 		var tween = get_tree().create_tween()
 		var original_pos = Player.position
 		var attack_offset = Vector2(30, 0)
@@ -148,8 +156,8 @@ func apply_damage(target, a, damageCombo):
 		bossHealth -= amount
 		await get_tree().create_timer(0.5).timeout
 		camera.apply_shake(0)
-		
 	elif target == "player":
+		sound_manager.play_boss_sound(boss_name, "attack")
 		var tween = get_tree().create_tween()
 		var original_pos = Boss.position
 		var attack_offset = Vector2(-30, 0)

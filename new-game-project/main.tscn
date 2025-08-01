@@ -1,33 +1,34 @@
-[gd_scene load_steps=36 format=3 uid="uid://bivscnvnggdmy"]
+[gd_scene load_steps=37 format=3 uid="uid://bivscnvnggdmy"]
 
 [ext_resource type="Script" uid="uid://77vg2gqbjcx" path="res://main.gd" id="1_yhtw0"]
-[ext_resource type="Texture2D" uid="uid://pjmucvhb70yn" path="res://art/placeholders/arrow_down.png" id="2_l6dht"]
 [ext_resource type="Texture2D" uid="uid://b8bbcjfv3q8im" path="res://art/Backgrounds/bg_level_1.png" id="2_qsp4k"]
-[ext_resource type="Texture2D" uid="uid://c534m0f1odd8o" path="res://art/ui_bg_bottom.png" id="2_xuqvo"]
-[ext_resource type="Texture2D" uid="uid://dqr8t3i0hqsru" path="res://art/placeholders/arrow_left.png" id="3_b50r5"]
 [ext_resource type="Texture2D" uid="uid://cf3517bag1wph" path="res://art/Backgrounds/bg_level_2.png" id="3_kq58d"]
-[ext_resource type="Texture2D" uid="uid://d3s857j8hqvv3" path="res://art/placeholders/arrow_right.png" id="4_3hsgg"]
 [ext_resource type="Texture2D" uid="uid://45foq7gwshqy" path="res://art/Backgrounds/bg_level_3.png" id="4_seu75"]
 [ext_resource type="Texture2D" uid="uid://h3hkhfiqcaw6" path="res://art/Backgrounds/bg_level_4.png" id="5_htxhm"]
-[ext_resource type="Texture2D" uid="uid://btp4xnfxx3tsm" path="res://art/placeholders/arrow_up.png" id="5_vs2mu"]
-[ext_resource type="Texture2D" uid="uid://bwdfh3x6e1p1n" path="res://art/placeholders/fruit_apple.png" id="6_c0lm6"]
 [ext_resource type="Texture2D" uid="uid://mfty87uw6687" path="res://art/Backgrounds/bg_level_5.png" id="6_jq2sk"]
-[ext_resource type="Texture2D" uid="uid://cyfrrkdqo7c0a" path="res://art/placeholders/fruit_apple_rotten.png" id="7_r215p"]
-[ext_resource type="Texture2D" uid="uid://bguhry7x12osd" path="res://art/placeholders/fruit_banana.png" id="8_ulu4f"]
-[ext_resource type="Texture2D" uid="uid://bayyi5sb1ylo5" path="res://art/placeholders/fruit_berry.png" id="9_ggtuu"]
 [ext_resource type="Texture2D" uid="uid://3dgddf6od4q5" path="res://art/portrait_enemy_5.png" id="10_a6jrf"]
-[ext_resource type="Texture2D" uid="uid://npyxw2o32fj7" path="res://art/placeholders/fruit_durian.png" id="10_c2tt4"]
 [ext_resource type="Texture2D" uid="uid://bx12rfojm1xca" path="res://art/portrait_enemy_4.png" id="10_xuqvo"]
-[ext_resource type="Texture2D" uid="uid://byslpaacpnnqu" path="res://art/placeholders/fruit_eaten_apple.png" id="11_p3rfw"]
-[ext_resource type="Texture2D" uid="uid://bjfhrme3q0qwm" path="res://art/placeholders/fruit_hot_pepper.png" id="12_n5l1e"]
-[ext_resource type="Texture2D" uid="uid://cpxejfc6npgee" path="res://art/placeholders/fruit_reaper_pepper.png" id="13_uv1lg"]
+[ext_resource type="Texture2D" uid="uid://dgidx7f6hkate" path="res://art/ui_bg.png" id="13_qsp4k"]
+[ext_resource type="Texture2D" uid="uid://3sursxhk0ovc" path="res://art/Arrows/arrow_down.png" id="14_qsp4k"]
+[ext_resource type="Texture2D" uid="uid://hi3a7uv6yof1" path="res://art/Arrows/arrow_left.png" id="15_kq58d"]
+[ext_resource type="Texture2D" uid="uid://bu7x2qclsuoya" path="res://art/Arrows/arrow_right.png" id="16_seu75"]
+[ext_resource type="Texture2D" uid="uid://da01vghho7514" path="res://art/Arrows/arrow_up.png" id="17_htxhm"]
+[ext_resource type="Texture2D" uid="uid://0afku3iippj2" path="res://art/Fruits/fruit_apple.png" id="18_qsp4k"]
+[ext_resource type="Texture2D" uid="uid://cl5ljd2aemn3x" path="res://art/Fruits/fruit_rotten_apple.png" id="19_kq58d"]
 [ext_resource type="Texture2D" uid="uid://c553s8uy3q0x3" path="res://art/portrait_enemy_1.png" id="19_lswn8"]
 [ext_resource type="Texture2D" uid="uid://bd7wr1rrwir2c" path="res://art/portrait_enemy_2.png" id="20_a6jrf"]
+[ext_resource type="Texture2D" uid="uid://c800r3t5f60ot" path="res://art/Fruits/fruit_banana.png" id="20_seu75"]
+[ext_resource type="Texture2D" uid="uid://cp3nsygkxgg3" path="res://art/Fruits/fruit_berry.png" id="21_htxhm"]
 [ext_resource type="Texture2D" uid="uid://dk75uubntronw" path="res://art/portrait_enemy_3.png" id="21_xuqvo"]
+[ext_resource type="Texture2D" uid="uid://cyso0gfq7br0f" path="res://art/Fruits/fruit_durian.png" id="22_jq2sk"]
+[ext_resource type="Texture2D" uid="uid://bfoh1o1p1nuoc" path="res://art/Fruits/fruit_eaten_apple.png" id="23_4k2k6"]
+[ext_resource type="Texture2D" uid="uid://budn2rw4ululi" path="res://art/Fruits/fruit_hot_pepper.png" id="24_0rl1p"]
 [ext_resource type="Texture2D" uid="uid://cnvj87j8g33md" path="res://art/portrait_player.png" id="24_qsp4k"]
 [ext_resource type="Texture2D" uid="uid://3ugeidkvyxnq" path="res://art/UI/ui_hp_bar_bg.png" id="25_kq58d"]
+[ext_resource type="Texture2D" uid="uid://b3r8728tpynb5" path="res://art/Fruits/fruit_reaper_pepper.png" id="25_ok6jj"]
 [ext_resource type="Texture2D" uid="uid://bdhjblmxf385y" path="res://art/UI/ui_hp_bar_progress.png" id="26_seu75"]
 [ext_resource type="Script" uid="uid://08a4ywksd6fj" path="res://camera.gd" id="27_a6jrf"]
+[ext_resource type="Script" uid="uid://bxkntlgk17kpd" path="res://sound_manager.gd" id="29_jq2sk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qsp4k"]
 animations = [{
@@ -79,28 +80,28 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_c0lm6")
+"texture": ExtResource("18_qsp4k")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_r215p")
+"texture": ExtResource("19_kq58d")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_ulu4f")
+"texture": ExtResource("20_seu75")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_ggtuu")
+"texture": ExtResource("21_htxhm")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_c2tt4")
+"texture": ExtResource("22_jq2sk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_p3rfw")
+"texture": ExtResource("23_4k2k6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_n5l1e")
+"texture": ExtResource("24_0rl1p")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_uv1lg")
+"texture": ExtResource("25_ok6jj")
 }],
 "loop": true,
 "name": &"default",
@@ -360,25 +361,25 @@ offset = Vector2(0, -7)
 position = Vector2(150, 195)
 texture = ExtResource("24_qsp4k")
 
-[node name="UiBgBottom" type="Sprite2D" parent="."]
-position = Vector2(240, 202.5)
-texture = ExtResource("2_xuqvo")
+[node name="UiBg" type="Sprite2D" parent="."]
+position = Vector2(240, 202)
+texture = ExtResource("13_qsp4k")
 
 [node name="ArrowDown" type="Sprite2D" parent="."]
-position = Vector2(114, 228.5)
-texture = ExtResource("2_l6dht")
+position = Vector2(112, 219.5)
+texture = ExtResource("14_qsp4k")
 
 [node name="ArrowLeft" type="Sprite2D" parent="."]
-position = Vector2(94, 206)
-texture = ExtResource("3_b50r5")
+position = Vector2(91, 201)
+texture = ExtResource("15_kq58d")
 
 [node name="ArrowRight" type="Sprite2D" parent="."]
-position = Vector2(133, 206)
-texture = ExtResource("4_3hsgg")
+position = Vector2(134, 201)
+texture = ExtResource("16_seu75")
 
 [node name="ArrowUp" type="Sprite2D" parent="."]
-position = Vector2(114, 183.5)
-texture = ExtResource("5_vs2mu")
+position = Vector2(112, 185)
+texture = ExtResource("17_htxhm")
 
 [node name="timerTextBox" type="Label" parent="."]
 offset_left = 189.0
@@ -393,27 +394,27 @@ wait_time = 60.0
 one_shot = true
 
 [node name="OptionUp" type="AnimatedSprite2D" parent="."]
-position = Vector2(114, 158.5)
+position = Vector2(112, 159.5)
 sprite_frames = SubResource("SpriteFrames_ybqpa")
 speed_scale = 0.0
 
 [node name="OptionDown" type="AnimatedSprite2D" parent="."]
-position = Vector2(113, 252.5)
+position = Vector2(112, 245.5)
 sprite_frames = SubResource("SpriteFrames_ybqpa")
 speed_scale = 0.0
 
 [node name="OptionLeft" type="AnimatedSprite2D" parent="."]
-position = Vector2(69, 206)
+position = Vector2(64, 199)
 sprite_frames = SubResource("SpriteFrames_ybqpa")
 speed_scale = 0.0
 
 [node name="OptionRight" type="AnimatedSprite2D" parent="."]
-position = Vector2(158, 206)
+position = Vector2(160, 199)
 sprite_frames = SubResource("SpriteFrames_ybqpa")
 speed_scale = 0.0
 
 [node name="BossChoice" type="AnimatedSprite2D" parent="."]
-position = Vector2(364, 200)
+position = Vector2(383, 199)
 sprite_frames = SubResource("SpriteFrames_ybqpa")
 speed_scale = 0.0
 
@@ -481,6 +482,7 @@ position = Vector2(240, 135)
 script = ExtResource("27_a6jrf")
 
 [node name="fade_frame" type="ColorRect" parent="."]
+visible = false
 modulate = Color(0, 0, 0, 0)
 offset_right = 480.0
 offset_bottom = 270.0
@@ -490,3 +492,6 @@ color = Color(0, 0, 0, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_htxhm")
 }
+
+[node name="SoundPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("29_jq2sk")

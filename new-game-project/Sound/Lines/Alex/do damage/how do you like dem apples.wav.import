@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cava08sryr3il"
+path="res://.godot/imported/how do you like dem apples.wav-b8b15e18af1007c3752a4855f785cb41.sample"
+
+[deps]
+
+source_file="res://Sound/Lines/Alex/do damage/how do you like dem apples.wav"
+dest_files=["res://.godot/imported/how do you like dem apples.wav-b8b15e18af1007c3752a4855f785cb41.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
