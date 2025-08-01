@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bivscnvnggdmy"]
+[gd_scene load_steps=40 format=3 uid="uid://bivscnvnggdmy"]
 
 [ext_resource type="Script" uid="uid://77vg2gqbjcx" path="res://main.gd" id="1_yhtw0"]
 [ext_resource type="Texture2D" uid="uid://b8bbcjfv3q8im" path="res://art/Backgrounds/bg_level_1.png" id="2_qsp4k"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://bdhjblmxf385y" path="res://art/UI/ui_hp_bar_progress.png" id="26_seu75"]
 [ext_resource type="Script" uid="uid://08a4ywksd6fj" path="res://camera.gd" id="27_a6jrf"]
 [ext_resource type="Script" uid="uid://bxkntlgk17kpd" path="res://sound_manager.gd" id="29_jq2sk"]
+[ext_resource type="AudioStream" uid="uid://b7q3sxb5hxqyi" path="res://Sound/bgm.wav" id="31_seu75"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qsp4k"]
 animations = [{
@@ -508,3 +509,7 @@ stream = SubResource("AudioStream_qsp4k")
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 480.0
 offset_bottom = 270.0
+
+[node name="BGM_Player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("31_seu75")
+autoplay = true

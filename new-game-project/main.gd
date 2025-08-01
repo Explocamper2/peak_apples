@@ -28,6 +28,7 @@ extends Node2D
 @onready var fade_frame: ColorRect = $fade_frame
 @onready var anim_player: AnimationPlayer = $AnimPlayer
 @onready var sound_manager: SoundManager = $SoundPlayer as SoundManager
+@onready var bgm_player: AudioStreamPlayer = $BGM_Player
 
 
 # images
@@ -122,6 +123,7 @@ func start_game() -> void:
 	round_timer.start()
 	boss_timer.start()
 	game_running = true
+	bgm_player.play()
 
 func update_stage():
 	for v in bosses:
