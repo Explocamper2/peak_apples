@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://57bygrbtmqpd"]
+
+[ext_resource type="Script" uid="uid://nbrfnpbxli5o" path="res://tutorial.gd" id="1_7n6eb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yb1ct"]
+
+[node name="tutorial" type="Node2D"]
+script = ExtResource("1_7n6eb")
+
+[node name="tutorialImage" type="TextureRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+
+[node name="continueButton" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_yb1ct")
