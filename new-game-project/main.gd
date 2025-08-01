@@ -47,7 +47,7 @@ var playerHealth = 100
 var bossHealth = 100
 var choosing_fruit = false
 var chosen_fruit = null
-var current_stage = 2
+var current_stage = 1
 var player_combo_count = 0
 var boss_combo_count = 0
 var damage_multi_active = false
@@ -155,6 +155,7 @@ func apply_damage(target, a, damageCombo):
 	# actually take the damage
 	if target == "boss":
 		sound_manager.play_boss_sound(boss_name, "hit")
+		sound_manager.play_player_sound("attack")
 		var tween = get_tree().create_tween()
 		var original_pos = Player.position
 		var attack_offset = Vector2(30, 0)
@@ -167,6 +168,7 @@ func apply_damage(target, a, damageCombo):
 		camera.apply_shake(0)
 	elif target == "player":
 		sound_manager.play_boss_sound(boss_name, "attack")
+		sound_manager.play_player_sound("hit")
 		var tween = get_tree().create_tween()
 		var original_pos = Boss.position
 		var attack_offset = Vector2(-30, 0)
@@ -410,7 +412,6 @@ func _process(_delta) -> void:
 	boss_combo_display.text = "Combo: " + str(boss_combo_count)
 	# Timer
 	timer_text_box.text = str(int(round(round_timer.time_left)))
-	print(timer_text_box.text)
 	
 	# health bar
 	player_health_bar.value = round_to_dec(playerHealth,1)
@@ -430,6 +431,19 @@ func _process(_delta) -> void:
 		playerHealth = 100
 		print("Now on round: ", current_stage)
 		update_stage()
+	if round_timer.time_left == 0 and game_running == true:
+		if playerHealth <  bossHealth:
+			print("Boss Wins!")
+			get_tree().change_scene_to_file("res://main_menu.tscn")
+		elif bossHealth < playerHealth:
+			print("Player Wins")
+			current_stage += 1
+			bossHealth = 100
+			playerHealth = 100
+			print("Now on round: ", current_stage)
+			update_stage()
+		else:
+			push_error("Error with comparing health: Player: ", playerHealth, "Boss: ", bossHealth)
 		
 	
 	# input
@@ -480,9 +494,9 @@ func _process(_delta) -> void:
 			print("player fruits: ", fruits)
 			if testing == true:
 				option_up.frame = 0
-				option_down.frame = 0 
-				option_left.frame = 2
-				option_right.frame = 2
+				option_down.frame = 3
+				option_left.frame = 3
+				option_right.frame = 0
 			else:
 				option_up.frame = fruits[0]
 				option_down.frame = fruits[1]

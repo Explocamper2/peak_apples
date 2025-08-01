@@ -7,7 +7,7 @@ var fruits = [
 		"index": 0,
 		"effects": {
 			"type": "damage",
-			"amount": 1,
+			"amount": 2,
 			"action": "",
 			"target": "opponent",
 		},
@@ -62,9 +62,9 @@ var fruits = [
 		"index": 5,
 		"effects": {
 			"type": "damage",
-			"amount": 0.5,
+			"amount": 1,
 			"action": "",
-			"target": "self",
+			"target": "opponent",
 		},
 	},
 	{
