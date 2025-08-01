@@ -87,7 +87,7 @@ var fruits = [
 			"type": "damage",
 			"amount": 3,
 			"action": "",
-			"target": "self",
+			"target": "opponent",
 		},
 	}
 ]
