@@ -51,7 +51,7 @@ var playerHealth = 100
 var bossHealth = 100
 var choosing_fruit = false
 var chosen_fruit = null
-var current_stage = 5
+var current_stage = 1
 var player_combo_count = 0
 var boss_combo_count = 0
 var damage_multi_active = false
@@ -383,6 +383,8 @@ func evaluate_fruit(index: int) -> float:
 		5:  # E5: (favours Reaper Pepper)
 			if fruit.name == "Reaper Pepper":
 				score += 50.0 * aggression
+			elif fruit.name == "Apple":
+				score += 40.0 * aggression
 			else:
 				if effect.type == "damage":
 					score += 5.0
