@@ -29,6 +29,8 @@ extends Node2D
 @onready var anim_player: AnimationPlayer = $AnimPlayer
 @onready var sound_manager: SoundManager = $SoundPlayer as SoundManager
 @onready var bgm_player: AudioStreamPlayer = $BGM_Player
+@onready var pause_menu: TextureRect = $pause_menu
+@onready var game_over: TextureRect = $game_over
 
 
 # images
@@ -426,6 +428,10 @@ func _process(_delta) -> void:
 	
 	if player_health_bar.value <= 0:
 		print("PLAYER HAS DIED")
+		game_running = false
+		game_over.visible = true
+		await get_tree().create_timer(5).timeout
+		get_tree().change_scene_to_file("res://main_menu.tscn")
 	elif boss_health_bar.value <= 0:
 		print("BOSS HAS DIED MOVING ONTO NEXT ROUND")
 		current_stage += 1
@@ -436,6 +442,9 @@ func _process(_delta) -> void:
 	if round_timer.time_left == 0 and game_running == true:
 		if playerHealth <  bossHealth:
 			print("Boss Wins!")
+			game_running = false
+			game_over.visible = true
+			await get_tree().create_timer(5).timeout
 			get_tree().change_scene_to_file("res://main_menu.tscn")
 		elif bossHealth < playerHealth:
 			print("Player Wins")
@@ -480,6 +489,7 @@ func _process(_delta) -> void:
 		arrow_left.texture = ARROW_LEFT_RELEASED
 	elif Input.is_action_just_released("right_arrow"):
 		arrow_right.texture = ARROW_RIGHT_RELEASED
+
 
 
 	# boss behavior
