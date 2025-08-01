@@ -31,12 +31,14 @@ grow_vertical = 2
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 450.0
-offset_bottom = 1150.0
+offset_left = -148.0
+offset_top = 400.0
+offset_right = 148.0
+offset_bottom = 1218.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_c1t8d")
-text = "A game by Awesome Game Company
+text = "Fruit Fight Frenzy
 
 Programming
 Miles
@@ -50,7 +52,7 @@ Pascal
 
 Sound Effects
 Miles
-Daine
+Bram
 Simon
 Alex
 Lucy
@@ -69,8 +71,7 @@ Art created with Aseprite
 https://www.aseprite.org
 
 Special thanks
-Alex
-Jonathan
+Alex (watch out for him)
 
 ⸻
 
